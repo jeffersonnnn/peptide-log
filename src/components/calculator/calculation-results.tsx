@@ -1,0 +1,110 @@
+"use client";
+import { motion, AnimatePresence } from "framer-motion";
+import type { CalculatorOutput } from "@/types";
+
+interface ResultsProps {
+  result: CalculatorOutput | null;
+}
+
+function StatCard({
+  label,
+  value,
+  suffix,
+}: {
+  label: string;
+  value: string | number;
+  suffix: string;
+}) {
+  return (
+    <div className="panel-glass p-3 rounded-xl">
+      <p className="text-[9px] text-[var(--text-faint)] font-mono uppercase tracking-widest mb-1">
+        {label}
+      </p>
+      <p className="font-mono font-bold text-xl text-[var(--text)]">
+        {value}
+        <span className="text-xs font-normal text-[var(--text-faint)] ml-1">{suffix}</span>
+      </p>
+    </div>
+  );
+}
+
+export function CalculationResults({ result }: ResultsProps) {
+  if (!result) {
+    return (
+      <div className="panel-glass p-8 text-center">
+        <div className="text-[var(--text-faint)] text-xs font-mono uppercase tracking-widest mb-2">
+          Results
+        </div>
+        <p className="text-[var(--text-faint)] text-sm">
+          Enter values to see results
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-3">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key="hero"
+          layout
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="relative overflow-hidden rounded-2xl border border-[var(--accent)]/20"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(0,212,190,0.12) 0%, rgba(0,212,190,0.04) 100%)",
+          }}
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,212,190,0.08),transparent_70%)]" />
+          <div className="relative px-5 py-6 text-center">
+            <p className="text-[10px] text-[var(--accent)]/60 font-mono uppercase tracking-[0.2em] mb-2">
+              Draw
+            </p>
+            <div className="flex items-baseline justify-center gap-2">
+              <span className="font-mono font-black text-5xl md:text-6xl text-[var(--accent)] tabular-nums">
+                {result.unitsToDrawPerDose}
+              </span>
+              <span className="text-lg text-[var(--accent)]/50 font-mono font-medium">
+                units
+              </span>
+            </div>
+            <p className="text-[var(--text-faint)] text-xs font-mono mt-2">
+              {result.mlToDrawPerDose} mL per dose
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+
+      <div className="grid grid-cols-2 gap-2">
+        <StatCard
+          label="Concentration"
+          value={result.concentrationMgPerMl}
+          suffix="mg/mL"
+        />
+        <StatCard
+          label="Doses / Vial"
+          value={result.dosesPerVial}
+          suffix="doses"
+        />
+        {result.costPerDose !== undefined && (
+          <StatCard
+            label="Cost / Dose"
+            value={`$${result.costPerDose}`}
+            suffix=""
+          />
+        )}
+      </div>
+
+      {result.warning && (
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono"
+        >
+          {result.warning}
+        </motion.div>
+      )}
+    </div>
+  );
+}
