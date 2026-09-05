@@ -1,199 +1,168 @@
 "use client";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/hooks/use-auth";
-import { ThemeToggle } from "@/components/layout/theme-toggle";
 
 const tabs = [
-  {
-    href: "/",
-    label: "Calculator",
-    mobileLabel: "Calc",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2v20M12 2l-3 6h6l-3-6zM8 14h8M6 18h12" />
-      </svg>
-    ),
-  },
-  {
-    href: "/tracker",
-    label: "Cycle Log",
-    mobileLabel: "Log",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" />
-        <line x1="16" y1="2" x2="16" y2="6" />
-        <line x1="8" y1="2" x2="8" y2="6" />
-        <line x1="3" y1="10" x2="21" y2="10" />
-        <path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01" />
-      </svg>
-    ),
-  },
-  {
-    href: "/compare",
-    label: "Am I Normal?",
-    mobileLabel: "Compare",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="18" y1="20" x2="18" y2="10" />
-        <line x1="12" y1="20" x2="12" y2="4" />
-        <line x1="6" y1="20" x2="6" y2="14" />
-      </svg>
-    ),
-  },
-  {
-    href: "/guide",
-    label: "Guide",
-    mobileLabel: "Guide",
-    icon: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
-        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
-        <line x1="9" y1="7" x2="16" y2="7" />
-        <line x1="9" y1="11" x2="14" y2="11" />
-      </svg>
-    ),
-  },
+  { href: "/", label: "Home", match: "exact" as const },
+  { href: "/calculator", label: "Calculator", match: "prefix" as const },
+  { href: "/learn", label: "Learn", match: "prefix" as const },
+  { href: "/peptides", label: "Peptides", match: "prefix" as const },
+  { href: "/tracker", label: "Cycle Log", match: "prefix" as const },
 ];
 
-function AuthButton() {
-  const { isAuthenticated, ready, login, logout, displayName } = useAuth();
+function isTabActive(pathname: string, href: string, match: "exact" | "prefix") {
+  if (match === "exact") return pathname === href;
+  return pathname === href || pathname.startsWith(href + "/");
+}
 
-  if (!ready) return null;
-
-  if (isAuthenticated) {
-    return (
-      <div className="flex items-center gap-2">
-        <span className="text-[10px] font-mono text-[var(--text-dim)] max-w-[120px] truncate">
-          {displayName}
-        </span>
-        <button
-          onClick={logout}
-          className="px-2.5 py-1 rounded-lg text-[10px] font-mono text-[var(--text-dim)] hover:text-[var(--text-secondary)] transition-colors"
-          style={{ backgroundColor: "var(--accent-faint)", border: "1px solid var(--border)" }}
-        >
-          Logout
-        </button>
-      </div>
-    );
-  }
-
+function Logo() {
   return (
-    <button
-      onClick={login}
-      className="px-3.5 py-1.5 rounded-lg text-xs font-mono font-semibold text-white transition-all hover:opacity-90 active:scale-95"
-      style={{ background: "linear-gradient(135deg, var(--gradient-from), var(--gradient-to))" }}
-    >
-      Connect
-    </button>
+    <svg width="30" height="30" viewBox="0 0 256 256" fill="white" aria-hidden className="md:w-8 md:h-8">
+      <path d="M 128 128 C 198.692 128 256 185.308 256 256 L 151.883 256 C 149.812 220.307 120.213 192 84 192 C 47.787 192 18.188 220.307 16.117 256 L 0 256 C 0 185.308 57.308 128 128 128 Z M 104.117 0 C 106.188 35.694 135.787 64 172 64 C 208.213 64 237.812 35.694 239.883 0 L 256 0 C 256 70.692 198.692 128 128 128 C 57.308 128 0 70.692 0 0 Z" />
+    </svg>
   );
 }
 
-function MobileAuthButton() {
-  const { isAuthenticated, ready, login, logout } = useAuth();
+function UserIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="10" r="3" />
+      <path d="M6.5 19a6 6 0 0111 0" />
+    </svg>
+  );
+}
 
-  if (!ready) return null;
+function Brand() {
+  return (
+    <Link href="/" className="flex items-center gap-2.5 shrink-0">
+      <Logo />
+      <span className="font-semibold tracking-tight text-white text-[15px] md:text-base">
+        Peptide<span className="text-white/60">Log</span>
+      </span>
+    </Link>
+  );
+}
 
-  if (isAuthenticated) {
-    return (
-      <button
-        onClick={logout}
-        className="relative flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[var(--accent)] transition-colors"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
-          <polyline points="16 17 21 12 16 7" />
-          <line x1="21" y1="12" x2="9" y2="12" />
-        </svg>
-        <span className="text-[10px] font-medium">Out</span>
-      </button>
-    );
-  }
+/** Account control — Privy login / logout. */
+function AccountButton({ onNavigate }: { onNavigate?: () => void }) {
+  const { isAuthenticated, ready, login, logout, displayName } = useAuth();
+
+  const handle = () => {
+    if (isAuthenticated) logout();
+    else login();
+    onNavigate?.();
+  };
 
   return (
     <button
-      onClick={login}
-      className="relative flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg text-[var(--accent)] transition-colors"
+      onClick={handle}
+      title={isAuthenticated ? `${displayName ?? "Account"} — sign out` : "Sign in"}
+      className="liquid-glass h-10 w-10 rounded-full flex items-center justify-center text-white/80 hover:text-white transition-colors"
+      aria-label={isAuthenticated ? "Sign out" : "Sign in"}
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
-      <span className="text-[10px] font-medium">Login</span>
+      {ready && isAuthenticated ? (
+        <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] absolute top-2 right-2" />
+      ) : null}
+      <UserIcon />
     </button>
   );
 }
 
 export function SiteNav() {
   const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <>
-      {/* Desktop top nav */}
-      <nav className="hidden md:block fixed top-0 left-0 right-0 z-50">
-        <div className="backdrop-blur-xl border-b" style={{ backgroundColor: "var(--nav-bg)", borderColor: "var(--border)" }}>
-          <div className="max-w-5xl mx-auto px-4 h-12 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="font-bold text-sm tracking-tight">
-                <span className="text-[var(--accent)]">Peptide</span>
-                <span className="text-[var(--text)]">Log</span>
-              </span>
-            </Link>
-            <div className="flex items-center gap-1">
-              {tabs.map((tab) => {
-                const isActive = pathname === tab.href;
-                return (
-                  <Link
-                    key={tab.href}
-                    href={tab.href}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
-                      isActive
-                        ? "text-[var(--accent)] bg-[var(--accent)]/10"
-                        : "text-[var(--text-dim)] hover:text-[var(--text-secondary)] hover:bg-[var(--accent-faint)]"
-                    }`}
-                  >
-                    {tab.icon}
-                    <span>{tab.label}</span>
-                  </Link>
-                );
-              })}
-              <div className="ml-3 pl-3 border-l flex items-center gap-1" style={{ borderColor: "var(--border)" }}>
-                <ThemeToggle />
-                <AuthButton />
-              </div>
-            </div>
-          </div>
+      <nav className="fixed top-0 left-0 right-0 z-30 flex items-center justify-between px-5 pt-6 sm:px-8 sm:pt-8 md:px-12 lg:px-16">
+        <Brand />
+
+        {/* Center pill — desktop */}
+        <div className="hidden md:flex liquid-glass rounded-full px-2 py-2">
+          {tabs.map((tab) => {
+            const active = isTabActive(pathname, tab.href, tab.match);
+            return (
+              <Link
+                key={tab.href}
+                href={tab.href}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  active ? "text-white bg-white/10" : "text-white/70 hover:text-white"
+                }`}
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
         </div>
+
+        {/* Account — desktop */}
+        <div className="hidden md:block">
+          <AccountButton />
+        </div>
+
+        {/* Hamburger — mobile */}
+        <button
+          onClick={() => setMenuOpen((v) => !v)}
+          className="md:hidden liquid-glass h-10 w-10 rounded-full flex items-center justify-center text-white z-50 relative"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+        >
+          <span
+            className={`absolute transition-all duration-300 ${
+              menuOpen ? "rotate-90 scale-0 opacity-0" : "rotate-0 scale-100 opacity-100"
+            }`}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <line x1="4" y1="7" x2="20" y2="7" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="17" x2="20" y2="17" />
+            </svg>
+          </span>
+          <span
+            className={`absolute transition-all duration-300 ${
+              menuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-0 opacity-0"
+            }`}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
+          </span>
+        </button>
       </nav>
 
-      {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50">
-        <div className="backdrop-blur-xl border-t safe-bottom" style={{ backgroundColor: "var(--nav-bg)", borderColor: "var(--border)" }}>
-          <div className="flex items-center justify-around h-14 max-w-lg mx-auto px-2">
-            {tabs.map((tab) => {
-              const isActive = pathname === tab.href;
-              return (
-                <Link
-                  key={tab.href}
-                  href={tab.href}
-                  className={`relative flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-lg transition-colors ${
-                    isActive
-                      ? "text-[var(--accent)]"
-                      : "text-[var(--text-dim)] hover:text-[var(--text-secondary)]"
-                  }`}
-                >
-                  {isActive && (
-                    <span className="absolute -top-0 w-8 h-0.5 bg-[var(--accent)] rounded-full" />
-                  )}
-                  {tab.icon}
-                  <span className="text-[10px] font-medium">{tab.mobileLabel}</span>
-                </Link>
-              );
-            })}
-            <MobileAuthButton />
+      {/* Mobile overlay menu */}
+      <div
+        className={`md:hidden fixed inset-0 z-40 bg-black/80 backdrop-blur-xl transition-opacity duration-500 ease-out ${
+          menuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <div
+          className={`flex h-full flex-col items-center justify-center gap-8 transition-transform duration-500 ease-out ${
+            menuOpen ? "translate-y-0" : "-translate-y-8"
+          }`}
+        >
+          {tabs.map((tab) => {
+            const active = isTabActive(pathname, tab.href, tab.match);
+            return (
+              <Link
+                key={tab.href}
+                href={tab.href}
+                onClick={() => setMenuOpen(false)}
+                className={`text-2xl font-medium ${active ? "text-white" : "text-white/70"}`}
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
+          <div className="mt-4 flex flex-col items-center gap-2">
+            <AccountButton onNavigate={() => setMenuOpen(false)} />
+            <span className="text-sm font-light text-white/60">Account</span>
           </div>
         </div>
-      </nav>
+      </div>
     </>
   );
 }

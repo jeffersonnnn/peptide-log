@@ -7,6 +7,8 @@ import { PresetButtons } from "./preset-buttons";
 import { SyringeVisual } from "@/components/syringe/syringe-visual";
 import { UsageCounter } from "@/components/layout/usage-counter";
 import { StackMode } from "./stack-mode";
+import { AuthGate } from "@/components/auth/auth-gate";
+import { ShareButton } from "@/components/protocol/share-button";
 
 export function ReconCalculator() {
   const calc = useCalculator();
@@ -26,10 +28,17 @@ export function ReconCalculator() {
         </div>
       </div>
 
-      {/* Presets */}
-      <div className="mb-6 overflow-x-auto -mx-4 px-4">
-        <PresetButtons onSelect={calc.selectPeptide} />
-      </div>
+      {/* Presets (gated) */}
+      <AuthGate
+        compact
+        title="Sign in for preset stacks"
+        description="One-tap popular stacks like the Wolverine Stack."
+        className="mb-6"
+      >
+        <div className="overflow-x-auto -mx-4 px-4">
+          <PresetButtons onSelect={calc.selectPeptide} />
+        </div>
+      </AuthGate>
 
       {/* Mobile: stacked layout. Desktop: 3-col */}
       <div className="flex flex-col md:grid md:grid-cols-[1fr,auto,1fr] gap-6 items-start">
@@ -94,12 +103,33 @@ export function ReconCalculator() {
 
         {/* Results */}
         <div className="w-full min-w-0">
-          <CalculationResults result={calc.result} />
+          <div id="calc-result-card">
+            <CalculationResults result={calc.result} />
+          </div>
+          {calc.result && (
+            <div className="mt-3">
+              <AuthGate
+                compact
+                overlay={false}
+                title="Sign in to save & share"
+                description="Copy a shareable image of this result."
+              >
+                <ShareButton cardElementId="calc-result-card" />
+              </AuthGate>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Stack Mode */}
-      <StackMode />
+      {/* Stack Mode (gated) */}
+      <div className="mt-6">
+        <AuthGate
+          title="Sign in to build stacks"
+          description="Calculate several peptides at once and save them as a stack."
+        >
+          <StackMode />
+        </AuthGate>
+      </div>
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import { HeroLanding } from "@/components/landing/hero-landing";
-import { ReconCalculator } from "@/components/calculator/recon-calculator";
+import { LandingSections } from "@/components/landing/landing-sections";
+import { Footer } from "@/components/layout/footer";
 
 export default function Home() {
   return (
     <>
       <HeroLanding />
-      <div id="calculator">
-        <ReconCalculator />
-      </div>
+      <LandingSections />
+      <Footer />
     </>
   );
 }

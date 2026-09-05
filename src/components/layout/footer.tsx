@@ -36,6 +36,15 @@ export function Footer() {
             </button>
           </span>
           <span className="text-[10px] text-[var(--text-faint)]">|</span>
+          <a
+            href="https://x.com/PeptideLog"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[10px] text-[var(--text-faint)] font-mono hover:text-[var(--accent)] transition-colors"
+          >
+            𝕏 @PeptideLog
+          </a>
+          <span className="text-[10px] text-[var(--text-faint)]">|</span>
           <span className="text-[10px] text-[var(--text-faint)] font-mono">
             Research use only. Not medical advice.
           </span>

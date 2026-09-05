@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeptideLog Tweet Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #080810;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 48px;
+    padding: 60px 20px;
+    font-family: 'Outfit', sans-serif;
+  }
+  h1 {
+    color: #E8E8ED;
+    font-family: 'Outfit', sans-serif;
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  h1 span { color: #818CF8; font-weight: 600; }
+  .instructions {
+    color: #555;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-align: center;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+  .card {
+    width: 1200px;
+    height: 628px;
+    position: relative;
+    overflow: hidden;
+    background: #0F0F14;
+    border-radius: 0;
+    flex-shrink: 0;
+  }
+  .card .bg-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+  .card .bg-glow-bl {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.05) 0%, transparent 70%);
+    bottom: -150px;
+    left: -100px;
+    pointer-events: none;
+  }
+  .card .grid-lines {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .card .inner {
+    position: relative;
+    z-index: 2;
+    padding: 52px 60px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .card .wordmark {
+    font-family: 'Outfit', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.01em;
+    margin-bottom: 6px;
+  }
+  .card .wordmark .pep { color: #E8E8ED; font-weight: 300; }
+  .card .wordmark .log { color: #818CF8; font-weight: 600; }
+  .card .category {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: #818CF8;
+    opacity: 0.5;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .card .headline {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+  .card .headline .white { color: #E8E8ED; }
+  .card .headline .accent {
+    background: linear-gradient(90deg, #6366F1, #8B5CF6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card .headline .dim { color: #6B7280; }
+  .card .body-text {
+    font-family: 'Outfit', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: #9CA3AF;
+    line-height: 1.55;
+    max-width: 640px;
+  }
+  .card .footer-line {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  .card .footer-line .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: #4B5563;
+  }
+  .card .footer-line .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: #4B5563;
+  }
+  .card .footer-line .handle {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #818CF8;
+    opacity: 0.6;
+    letter-spacing: 0.04em;
+  }
+  .card .logo-mark {
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.07;
+    pointer-events: none;
+  }
+  .card .number {
+    position: absolute;
+    right: 60px;
+    top: 52px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: #818CF8;
+    opacity: 0.3;
+    letter-spacing: 0.05em;
+  }
+  .card .accent-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #6366F1, #8B5CF6);
+    opacity: 0.6;
+  }
+  .sep {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #818CF8, transparent);
+    opacity: 0.2;
+  }
+</style>
+</head>
+<body>
+
+<h1>Peptide<span>Log</span> — Tweet Cards</h1>
+<p class="instructions">Each card is 1200x628px (Twitter image size). Right-click → Save Image, or screenshot each card individually.</p>
+
+<div class="sep"></div>
+
+<!-- TWEET 1 -->
+<div class="card" id="tweet-1">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">001</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Reconstitution Tools</div>
+    <div class="headline" style="font-size:48px;">
+      <span class="white">Measure.</span><br>
+      <span class="accent">Calculate.</span><br>
+      <span class="dim">Inject.</span>
+    </div>
+    <p class="body-text">Free reconstitution calculator with visual syringe guide, cycle tracking, and community side-effect analytics.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 2 -->
+<div class="card" id="tweet-2">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">002</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Calculator</div>
+    <div class="headline" style="font-size:52px;">
+      <span class="accent">"How many units</span><br>
+      <span class="accent">do I draw?"</span>
+    </div>
+    <p class="body-text">Enter your vial size, BAC water, and desired dose. Get exact syringe units, concentration, doses per vial, and cost per dose. No guessing.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 3 -->
+<div class="card" id="tweet-3">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">003</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Peptide Guide</div>
+    <div class="headline" style="font-size:46px;">
+      <span class="accent">17 peptides.</span><br>
+      <span class="white">One guide.</span>
+    </div>
+    <p class="body-text">Dose ranges, frequency, storage requirements, and stack compatibility. Everything you need to know about reconstitution and storage in one place.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 4 -->
+<div class="card" id="tweet-4">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">004</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Cycle Tracking</div>
+    <div class="headline" style="font-size:46px;">
+      <span class="white">Your data is </span><span class="accent">yours.</span>
+    </div>
+    <p class="body-text">Track injections, side effects, pain levels, energy, and weight. Cloud-synced and private. We just make it easier to track.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 5 -->
+<div class="card" id="tweet-5">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">005</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Community Analytics</div>
+    <div class="headline" style="font-size:56px;">
+      <span class="accent">"Am I Normal?"</span>
+    </div>
+    <p class="body-text">See how your side effects stack up against everyone else's. Anonymous aggregate data, updated in real time. That's literally the name of the tool.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 6 -->
+<div class="card" id="tweet-6">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">006</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">PWA &middot; Offline First</div>
+    <div class="headline" style="font-size:46px;">
+      <span class="white">Works </span><span class="accent">offline.</span><br>
+      <span class="white">Syncs when you're </span><span class="dim">back.</span>
+    </div>
+    <p class="body-text">Install it on your phone. Use it in the gym, in your bathroom, wherever you pin. No signal needed.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 7 -->
+<div class="card" id="tweet-7">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">007</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Storage Guide</div>
+    <div class="headline" style="font-size:46px;">
+      <span class="accent">Storage</span><span class="white"> matters more</span><br>
+      <span class="white">than you think.</span>
+    </div>
+    <p class="body-text">Temperature requirements, UV sensitivity, and shelf life for every peptide. Refrigerate, freeze, or room temp — stop guessing.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 8 -->
+<div class="card" id="tweet-8">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">008</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Design</div>
+    <div class="headline" style="font-size:42px;">
+      <span class="white">Light mode for </span><span class="accent">6am.</span><br>
+      <span class="white">Dark mode for </span><span class="dim">midnight.</span>
+    </div>
+    <p class="body-text">We support both because some of you reconstitute at dawn and some of you reconstitute at midnight. No judgment. Just precision.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 9 -->
+<div class="card" id="tweet-9">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">009</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">On-Chain &middot; Base</div>
+    <div class="headline" style="font-size:48px;">
+      <span class="white">Going </span><span class="accent">on-chain.</span>
+    </div>
+    <p class="body-text">Launching on Base through @bankrbot — token-gated features, on-chain cycle attestations, and a self-sustaining model where swap fees fund the platform. No ads. No subscriptions.</p>
+    <div class="footer-line">
+      <span class="tag">$PEPTIDE on Base</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 10 -->
+<div class="card" id="tweet-10">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">010</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Why Base?</div>
+    <div class="headline" style="font-size:44px;">
+      <span class="accent">Sub-cent transactions.</span><br>
+      <span class="white">Coinbase ecosystem.</span><br>
+      <span class="dim">$0 launch cost.</span>
+    </div>
+    <p class="body-text">Native attestation service. @bankrbot makes launching a fair-launch token with locked liquidity cost nothing. The infrastructure matches what we're building.</p>
+    <div class="footer-line">
+      <span class="tag">$PEPTIDE on Base</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 11 -->
+<div class="card" id="tweet-11">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">011</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Token Gating</div>
+    <div class="headline" style="font-size:46px;">
+      <span class="white">Hold </span><span class="accent">$PEPTIDE.</span><br>
+      <span class="white">Unlock </span><span class="dim">everything.</span>
+    </div>
+    <p class="body-text">Advanced cycle analytics, community comparison data, and export features. Your wallet is already connected through Privy — the gating is seamless.</p>
+    <div class="footer-line">
+      <span class="tag">$PEPTIDE on Base</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 12 -->
+<div class="card" id="tweet-12">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">012</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">On-Chain Attestations</div>
+    <div class="headline" style="font-size:42px;">
+      <span class="white">What if your cycle logs</span><br>
+      <span class="white">were </span><span class="accent">verifiable?</span>
+    </div>
+    <p class="body-text">On-chain attestations via Base's Ethereum Attestation Service. A hash of your cycle data, committed on-chain. Tamper-proof research logs.</p>
+    <div class="footer-line">
+      <span class="tag">$PEPTIDE on Base</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 13 -->
+<div class="card" id="tweet-13">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">013</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Self-Sustaining</div>
+    <div class="headline" style="font-size:46px;">
+      <span class="accent">57%</span><span class="white"> of swap fees</span><br>
+      <span class="white">fund </span><span class="dim">everything.</span>
+    </div>
+    <p class="body-text">@bankrbot gives token creators 57% of swap fees. That revenue funds hosting, API costs, and development. No VC. No ads. No subscriptions.</p>
+    <div class="footer-line">
+      <span class="tag">$PEPTIDE on Base</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 14 -->
+<div class="card" id="tweet-14">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">014</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">No Ads &middot; No Data Sales</div>
+    <div class="headline" style="font-size:42px;">
+      <span class="white">Most health apps </span><span class="accent">sell your data</span><br>
+      <span class="white">or charge </span><span class="dim">$12/month.</span>
+    </div>
+    <p class="body-text">PeptideLog is free. The token model means the platform sustains itself through swap fees. Your data stays private. You never see an ad.</p>
+    <div class="footer-line">
+      <span class="tag">$PEPTIDE on Base</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 15 -->
+<div class="card" id="tweet-15">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">015</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Contract Address</div>
+    <div class="headline" style="font-size:52px;">
+      <span class="white">Contract address:</span><br>
+      <span class="accent">Coming Soon.</span>
+    </div>
+    <p class="body-text">When it's live, it'll be in the app footer. One click to copy. Built into the product from day one.</p>
+    <div class="footer-line">
+      <span class="tag">$PEPTIDE on Base</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 16 -->
+<div class="card" id="tweet-16">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">016</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Community</div>
+    <div class="headline" style="font-size:38px;">
+      <span class="white">If you've ever Googled</span><br>
+      <span class="accent">"BPC-157 reconstitution calculator"</span><br>
+      <span class="dim">at 2am</span>
+    </div>
+    <p class="body-text">You are our target user and we built this for you.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 17 -->
+<div class="card" id="tweet-17">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">017</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Manifesto</div>
+    <div class="headline" style="font-size:42px;">
+      <span class="white">Better tools than a</span><br>
+      <span class="accent">Reddit thread from 2019.</span>
+    </div>
+    <p class="body-text">The peptide community deserves better than a unit conversion site from 2004. PeptideLog. Free. Open. Precision.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 18 -->
+<div class="card" id="tweet-18">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">018</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Community Data</div>
+    <div class="headline" style="font-size:42px;">
+      <span class="white">Every entry feeds the</span><br>
+      <span class="accent">community engine.</span>
+    </div>
+    <p class="body-text">The more people track, the better the data gets. Your anonymous side-effect report helps the next person know what to expect.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 19 -->
+<div class="card" id="tweet-19">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">019</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Building in Public</div>
+    <div class="headline" style="font-size:44px;">
+      <span class="accent">Next.js. Supabase. Privy. Base.</span>
+    </div>
+    <p class="body-text">Every decision documented. Every feature shipped because someone in the community asked for it. Building PeptideLog in public.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<!-- TWEET 20 -->
+<div class="card" id="tweet-20">
+  <div class="bg-glow"></div>
+  <div class="bg-glow-bl"></div>
+  <div class="grid-lines"></div>
+  <div class="accent-bar"></div>
+  <div class="number">020</div>
+  <svg class="logo-mark" width="340" height="400" viewBox="0 0 340 400">
+    <text x="170" y="300" text-anchor="middle" font-family="Outfit" font-weight="800" font-size="400" fill="#818CF8">P</text>
+  </svg>
+  <div class="inner">
+    <div class="wordmark"><span class="pep">Peptide</span><span class="log">Log</span></div>
+    <div class="category">Research Tools</div>
+    <div class="headline" style="font-size:48px;">
+      <span class="white">Measure.</span><br>
+      <span class="accent">Calculate.</span><br>
+      <span class="dim">Inject.</span>
+    </div>
+    <p class="body-text">17 peptides. Visual syringe guide. Cycle tracking. Community analytics. Free forever. Peptides are a research tool. So is PeptideLog.</p>
+    <div class="footer-line">
+      <span class="tag">peptidelog.com</span>
+      <span class="dot"></span>
+      <span class="handle">@PeptideLog</span>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+<p class="instructions">Tip: Use browser DevTools to screenshot each .card element at exactly 1200x628, or use a tool like html2canvas / Puppeteer to batch export.</p>
+
+</body>
+</html>
