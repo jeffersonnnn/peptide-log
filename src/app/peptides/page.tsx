@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/layout/page-header";
 import { peptides } from "@/data/peptides";
+import { VialCard, categoryLabels, categoryColor } from "@/components/peptides/vial-card";
+import type { Peptide } from "@/types";
 
 export const metadata: Metadata = {
   title: "Peptide Library | PeptideLog",
@@ -10,97 +12,52 @@ export const metadata: Metadata = {
   alternates: { canonical: "/peptides" },
 };
 
-const categoryLabels: Record<string, string> = {
-  healing: "Healing & Recovery",
-  weight: "Weight & Metabolic",
-  cosmetic: "Cosmetic",
-  cognitive: "Cognitive",
-  sleep: "Sleep",
-  blend: "Blends & Stacks",
-};
-
-const categoryOrder = ["healing", "weight", "cosmetic", "cognitive", "sleep", "blend"];
-
-const categoryDot: Record<string, string> = {
-  healing: "bg-emerald-400",
-  weight: "bg-amber-400",
-  cosmetic: "bg-pink-400",
-  cognitive: "bg-blue-400",
-  sleep: "bg-violet-400",
-  blend: "bg-cyan-400",
-};
+const ORDER: Peptide["category"][] = ["healing", "weight", "cosmetic", "cognitive", "sleep", "blend"];
 
 export default function PeptidesPage() {
-  const groups = categoryOrder
-    .map((cat) => ({ cat, items: peptides.filter((p) => p.category === cat) }))
-    .filter((g) => g.items.length > 0);
+  const groups = ORDER.map((cat) => ({
+    cat,
+    items: peptides.filter((p) => p.category === cat),
+  })).filter((g) => g.items.length > 0);
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-6xl mx-auto px-5 sm:px-8">
       <PageHeader
         eyebrow="Reference"
-        title={
-          <>
-            Peptide <span className="text-[var(--accent)]">library</span>
-          </>
+        title="Peptide library"
+        subtitle={`Dose ranges, storage, and stacks for ${peptides.length} research peptides and blends. Open any vial for the full profile.`}
+        aside={
+          <Link href="/compare" className="btn-secondary">
+            Compare side effects
+          </Link>
         }
-        subtitle={`Dose ranges, storage, and stacks for ${peptides.length} research peptides. Tap any peptide for the full profile.`}
       />
 
-      {/* Compare tool link */}
-      <Link
-        href="/compare"
-        className="group panel-glass p-4 flex items-center gap-3 mb-8 hover:border-[var(--accent)]/30 transition-colors"
-      >
-        <span className="shrink-0 w-9 h-9 rounded-lg bg-[var(--accent)]/10 border border-[var(--accent)]/20 flex items-center justify-center text-[var(--accent)]">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10" />
-            <line x1="12" y1="20" x2="12" y2="4" />
-            <line x1="6" y1="20" x2="6" y2="14" />
-          </svg>
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="text-sm font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
-            Am I Normal?
-          </p>
-          <p className="text-[var(--text-dim)] text-xs">
-            Compare your side effects to the community.
-          </p>
-        </div>
-        <span className="text-[var(--text-faint)] group-hover:text-[var(--accent)] transition-colors">&rarr;</span>
-      </Link>
-
-      <div className="space-y-8">
+      <nav className="flex flex-wrap gap-2 mb-10" aria-label="Categories">
         {groups.map((g) => (
-          <section key={g.cat}>
-            <div className="flex items-center gap-2 mb-3">
-              <span className={`w-2 h-2 rounded-full ${categoryDot[g.cat] ?? "bg-[var(--accent)]"}`} />
-              <h2 className="text-xs font-mono uppercase tracking-wider text-[var(--text-dim)]">
-                {categoryLabels[g.cat] ?? g.cat}
-              </h2>
+          <a
+            key={g.cat}
+            href={`#${g.cat}`}
+            className="inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-3.5 py-1.5 text-sm text-[var(--text-secondary)] hover:text-white hover:border-[var(--border-strong)] transition-colors"
+          >
+            <span className="h-2 w-2 rounded-full" style={{ background: categoryColor[g.cat] }} aria-hidden />
+            {categoryLabels[g.cat]}
+            <span className="font-mono text-xs text-[var(--text-faint)] tabular-nums">{g.items.length}</span>
+          </a>
+        ))}
+      </nav>
+
+      <div className="space-y-14">
+        {groups.map((g) => (
+          <section key={g.cat} id={g.cat} className="scroll-mt-32">
+            <div className="flex items-baseline gap-3 mb-4">
+              <span className="h-2.5 w-2.5 rounded-full" style={{ background: categoryColor[g.cat] }} aria-hidden />
+              <h2 className="text-2xl tracking-tight">{categoryLabels[g.cat]}</h2>
+              <span className="font-mono text-sm text-[var(--text-faint)] tabular-nums">{g.items.length}</span>
             </div>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {g.items.map((p) => (
-                <Link
-                  key={p.id}
-                  href={`/peptides/${p.id}`}
-                  className="group panel-glass p-4 hover:border-[var(--accent)]/30 transition-colors"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-mono font-bold text-[var(--accent)] text-sm group-hover:opacity-80 transition-opacity">
-                      {p.name}
-                    </h3>
-                    <span className="text-[9px] font-mono text-[var(--text-faint)]">
-                      {p.commonVialSizesMg.join("/")} mg
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] font-mono text-[var(--text-dim)]">
-                    <span>
-                      {p.typicalDoseRangeMcg[0]}–{p.typicalDoseRangeMcg[1]} mcg
-                    </span>
-                    <span>{p.injectionFrequency}</span>
-                  </div>
-                </Link>
+                <VialCard key={p.id} peptide={p} />
               ))}
             </div>
           </section>

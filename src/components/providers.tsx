@@ -1,5 +1,6 @@
 "use client";
 import { PrivyProvider } from "@privy-io/react-auth";
+import { MotionConfig } from "framer-motion";
 import React from "react";
 
 class PrivyErrorBoundary extends React.Component<
@@ -27,13 +28,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
         config={{
           appearance: {
             theme: "dark",
-            accentColor: "#4F46E5",
+            accentColor: "#00C805",
             logo: "/icon.svg",
           },
           loginMethods: ["email", "wallet"],
         }}
       >
-        {children}
+        <MotionConfig reducedMotion="user">{children}</MotionConfig>
       </PrivyProvider>
     </PrivyErrorBoundary>
   );

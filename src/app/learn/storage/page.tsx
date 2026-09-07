@@ -15,21 +15,15 @@ export default function StoragePage() {
   const blends = peptides.filter((p) => p.category === "blend");
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-3xl mx-auto px-5 sm:px-8">
       <PageHeader
         crumbs={[{ label: "Learn", href: "/learn" }, { label: "Storage" }]}
-        eyebrow="Reference"
-        title={
-          <>
-            <span className="text-[var(--accent)]">Storage</span> & shelf life
-          </>
-        }
-        subtitle="How to store each peptide after mixing. Keep BAC water and reconstituted vials out of UV light."
+        eyebrow="Guide 3 of 3"
+        title="Storage and shelf life"
+        subtitle="Where to keep each peptide after mixing, and for how long. Keep bacteriostatic water and mixed vials out of light."
       />
 
-      <h2 className="text-xs text-[var(--text-faint)] font-mono uppercase tracking-wider mb-3">
-        Individual peptides
-      </h2>
+      <h2 className="text-sm text-[var(--text-dim)] mb-3">Individual peptides</h2>
       <div className="grid gap-3">
         {nonBlends.map((p) => (
           <StorageCard key={p.id} peptide={p} />
@@ -38,9 +32,7 @@ export default function StoragePage() {
 
       {blends.length > 0 && (
         <>
-          <h2 className="text-xs text-[var(--text-faint)] font-mono uppercase tracking-wider mt-8 mb-3">
-            Blend stacks
-          </h2>
+          <h2 className="text-sm text-[var(--text-dim)] mt-10 mb-3">Blend stacks</h2>
           <div className="grid gap-3">
             {blends.map((p) => (
               <StorageCard key={p.id} peptide={p} />

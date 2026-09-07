@@ -26,7 +26,7 @@ function LockIcon({ size = 16 }: { size?: number }) {
  * with a "sign in to unlock" prompt on top. Once the Privy session is ready
  * and authenticated, the real children render normally.
  */
-export function AuthGate({ children, title = "Sign in to unlock", description, compact, overlay = true, className }: AuthGateProps) {
+export function AuthGate({ children, title = "Sign in to unlock this", description, compact, overlay = true, className }: AuthGateProps) {
   const { isAuthenticated, ready, login } = useAuth();
 
   if (isAuthenticated) {
@@ -44,11 +44,8 @@ export function AuthGate({ children, title = "Sign in to unlock", description, c
       </p>
       <button
         onClick={login}
-        className="shrink-0 px-3 py-1.5 rounded-lg text-white font-mono text-[10px] uppercase tracking-[0.1em] hover:opacity-90 active:scale-95 transition-all"
-        style={{ background: "linear-gradient(135deg, var(--gradient-from), var(--gradient-to))" }}
-      >
-        Connect
-      </button>
+        className="btn-primary !py-2 !px-3.5 text-xs shrink-0"
+              >Sign in</button>
     </div>
   ) : (
     <div className="panel-glass px-6 py-5 text-center max-w-xs mx-auto">
@@ -61,10 +58,9 @@ export function AuthGate({ children, title = "Sign in to unlock", description, c
       )}
       <button
         onClick={login}
-        className="mt-4 px-4 py-2 rounded-lg text-white font-mono text-xs uppercase tracking-[0.1em] hover:opacity-90 active:scale-95 transition-all"
-        style={{ background: "linear-gradient(135deg, var(--gradient-from), var(--gradient-to))" }}
-      >
-        Connect to unlock
+        className="btn-primary mt-4 !py-2.5 !px-4 text-sm"
+              >
+        Sign in with email or wallet
       </button>
     </div>
   );

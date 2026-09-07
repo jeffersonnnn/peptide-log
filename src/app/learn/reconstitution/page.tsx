@@ -12,34 +12,25 @@ export const metadata: Metadata = {
 
 export default function ReconstitutionPage() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-3xl mx-auto px-5 sm:px-8">
       <PageHeader
-        crumbs={[{ label: "Learn", href: "/learn" }, { label: "How to Reconstitute" }]}
-        eyebrow="Walkthrough"
-        title={
-          <>
-            How to <span className="text-[var(--accent)]">reconstitute</span>
-          </>
-        }
+        crumbs={[{ label: "Learn", href: "/learn" }, { label: "How to reconstitute" }]}
+        eyebrow="Guide 2 of 3"
+        title="How to reconstitute"
         subtitle="Follow every step in order. Work on a clean surface with clean hands."
       />
 
       <ReconWalkthrough />
 
-      <div className="mt-8 panel-glass p-5 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
+      <div className="mt-10 rounded-2xl border border-[var(--border)] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
         <div>
-          <p className="text-sm font-semibold text-[var(--text)]">
-            Not sure how much BAC water to add?
-          </p>
-          <p className="text-[var(--text-dim)] text-xs mt-0.5">
+          <p className="text-white">Not sure how much water to add?</p>
+          <p className="text-[var(--text-dim)] text-sm mt-1">
             The calculator works it out from your vial and dose.
           </p>
         </div>
-        <Link
-          href="/calculator"
-          className="shrink-0 inline-block px-4 py-2 rounded-lg bg-[var(--accent)] text-white font-mono text-xs uppercase tracking-[0.1em] hover:opacity-90 transition-all"
-        >
-          Open Calculator
+        <Link href="/calculator" className="btn-primary shrink-0">
+          Open the calculator
         </Link>
       </div>
     </div>

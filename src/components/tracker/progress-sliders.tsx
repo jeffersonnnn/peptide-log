@@ -27,7 +27,7 @@ function Slider({
   return (
     <div>
       <div className="flex justify-between items-center mb-1.5">
-        <label className="text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider">
+        <label className="text-xs text-[var(--text-dim)]">
           {label}
         </label>
         <span className="text-sm font-mono font-semibold" style={{ color }}>
@@ -60,7 +60,7 @@ export function ProgressSliders({
 }: ProgressSlidersProps) {
   return (
     <div className="space-y-5">
-      <p className="text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider">
+      <p className="text-xs text-[var(--text-dim)]">
         How are you feeling?
       </p>
       <Slider
@@ -80,7 +80,7 @@ export function ProgressSliders({
         color={energyLevel >= 7 ? "#4ade80" : energyLevel >= 4 ? "#facc15" : "#f87171"}
       />
       <div>
-        <label className="block text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider mb-1.5">
+        <label className="block text-xs text-[var(--text-dim)] mb-1.5">
           Weight (optional)
         </label>
         <div className="relative">

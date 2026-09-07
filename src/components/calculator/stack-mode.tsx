@@ -98,7 +98,7 @@ export function StackMode() {
   return (
     <div className="mt-6 space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-mono text-[var(--text-dim)] uppercase tracking-wider">
+        <h2 className="text-sm text-[var(--text-dim)]">
           Stack Builder
         </h2>
         <button
@@ -146,7 +146,7 @@ export function StackMode() {
                   {peptides
                     .filter((p) => p.category !== "blend")
                     .map((p) => (
-                      <option key={p.id} value={p.id} className="bg-[#0a1020] text-white">
+                      <option key={p.id} value={p.id} className="bg-[#121214] text-white">
                         {p.name}
                       </option>
                     ))}
@@ -231,7 +231,7 @@ export function StackMode() {
       {/* Stack summary */}
       {results.length >= 2 && (
         <div className="panel-glass-accent p-4">
-          <p className="text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider mb-2">
+          <p className="text-xs text-[var(--text-dim)] mb-2">
             Stack Summary
           </p>
           <div className="space-y-1.5 text-xs font-mono">

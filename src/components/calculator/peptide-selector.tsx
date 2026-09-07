@@ -38,7 +38,7 @@ export function PeptideSelector({ selectedId, onSelect }: PeptideSelectorProps) 
 
   return (
     <div ref={ref} className="relative">
-      <label className="block text-xs text-[var(--text-dim)] mb-1.5 font-mono uppercase tracking-wider">
+      <label className="block text-xs text-[var(--text-dim)] mb-1.5">
         Peptide
       </label>
       <button

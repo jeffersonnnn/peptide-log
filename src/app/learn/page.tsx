@@ -11,71 +11,56 @@ export const metadata: Metadata = {
 
 const guides = [
   {
-    num: "001",
     href: "/learn/formula",
-    title: "The Reconstitution Formula",
-    desc: "Understand the math behind dosing. See each step worked out, then plug in your own numbers.",
-    tag: "Formula",
+    title: "The reconstitution formula",
+    desc: "The math behind dosing. Each step worked out, then you plug in your own numbers.",
+    time: "5 min",
   },
   {
-    num: "002",
     href: "/learn/reconstitution",
-    title: "How to Reconstitute",
-    desc: "A step-by-step walkthrough of mixing a vial safely, from swabbing to your first draw.",
-    tag: "Walkthrough",
+    title: "How to reconstitute",
+    desc: "Mixing a vial safely, from swabbing to your first draw.",
+    time: "6 min",
   },
   {
-    num: "003",
     href: "/learn/storage",
-    title: "Storage & Shelf Life",
-    desc: "How to store each peptide after mixing. Temperature, UV light, and shelf life at a glance.",
-    tag: "Reference",
+    title: "Storage and shelf life",
+    desc: "Where to keep each peptide after mixing, and for how long.",
+    time: "3 min",
   },
 ];
 
 export default function LearnPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-3xl mx-auto px-5 sm:px-8">
       <PageHeader
         eyebrow="Guides"
-        title={
-          <>
-            <span className="text-[var(--accent)]">Learn</span> the process
-          </>
-        }
-        subtitle="The calculator gives you the number. These guides explain the why: the dosing formula, safe mixing, and storage."
+        title="Learn the process"
+        subtitle="The calculator gives you the number. These three guides explain the why: the formula, safe mixing, and storage. Read them in order if you are new."
       />
 
-      <div className="grid gap-4 sm:grid-cols-1">
-        {guides.map((g) => (
-          <Link
-            key={g.href}
-            href={g.href}
-            className="group panel-glass p-5 flex items-start gap-4 hover:border-[var(--accent)]/30 transition-colors"
-          >
-            <span className="shrink-0 text-[10px] font-mono text-[var(--text-faint)] pt-1">
-              {g.num}
-            </span>
-            <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-base font-semibold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">
-                  {g.title}
-                </h2>
-                <span className="text-[9px] font-mono uppercase tracking-wider text-[var(--text-faint)] px-2 py-0.5 rounded-full border border-[var(--border)]">
-                  {g.tag}
-                </span>
+      <ol className="border-t border-[var(--border)]">
+        {guides.map((g, i) => (
+          <li key={g.href} className="border-b border-[var(--border)]">
+            <Link href={g.href} className="group flex items-start gap-6 py-6">
+              <span className="font-mono text-sm text-[var(--text-faint)] tabular-nums pt-1.5">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <div className="min-w-0 flex-1">
+                <h2 className="text-xl md:text-2xl tracking-tight text-white">{g.title}</h2>
+                <p className="mt-1.5 text-[var(--text-dim)] leading-relaxed">{g.desc}</p>
               </div>
-              <p className="text-[var(--text-dim)] text-xs leading-relaxed">{g.desc}</p>
-            </div>
-            <svg
-              className="shrink-0 text-[var(--text-faint)] group-hover:text-[var(--accent)] group-hover:translate-x-0.5 transition-all mt-1"
-              width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </Link>
+              <span className="hidden sm:block text-xs text-[var(--text-faint)] pt-2 shrink-0">{g.time}</span>
+              <svg
+                className="shrink-0 mt-2 text-[var(--text-faint)] group-hover:text-white group-hover:translate-x-1 transition-all"
+                width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   );
 }

@@ -12,58 +12,40 @@ export const metadata: Metadata = {
 
 export default function FormulaPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-3xl mx-auto px-5 sm:px-8">
       <PageHeader
-        crumbs={[{ label: "Learn", href: "/learn" }, { label: "The Formula" }]}
-        eyebrow="Guide"
-        title={
-          <>
-            The reconstitution <span className="text-[var(--accent)]">formula</span>
-          </>
-        }
-        subtitle="Reconstitution means mixing dry peptide powder with bacteriostatic (BAC) water so you can draw an exact dose. Here is the math, one step at a time. Change any number below and every step updates."
+        crumbs={[{ label: "Learn", href: "/learn" }, { label: "The formula" }]}
+        eyebrow="Guide 1 of 3"
+        title="The reconstitution formula"
+        subtitle="Reconstitution means mixing dry peptide powder with bacteriostatic water so you can draw an exact dose. Here is the math, one step at a time. Change any number and every step updates."
       />
 
       <FormulaGuide />
 
-      {/* Reference block */}
-      <div className="mt-8 panel-glass p-5">
-        <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-dim)] mb-3">
-          The four equations
-        </p>
-        <ul className="space-y-2 text-xs font-mono text-[var(--text-secondary)] leading-relaxed">
-          <li>Concentration = Vial mg &divide; BAC mL &times; 1000 &rarr; mcg/mL</li>
-          <li>Volume = Dose mcg &divide; Concentration mcg/mL &rarr; mL</li>
-          <li>Units = Volume mL &times; 100 (for a U100 syringe)</li>
-          <li>Doses per vial = Vial mg &times; 1000 &divide; Dose mcg</li>
+      <div className="mt-10 rounded-2xl border border-[var(--border)] p-5 sm:p-6">
+        <p className="text-sm text-white mb-3">The four equations</p>
+        <ul className="space-y-2 text-sm font-mono text-[var(--text-secondary)] leading-relaxed">
+          <li>Concentration = vial mg &divide; water mL &times; 1000, in mcg/mL</li>
+          <li>Volume = dose mcg &divide; concentration mcg/mL, in mL</li>
+          <li>Units = volume mL &times; 100, for a U100 syringe</li>
+          <li>Doses per vial = vial mg &times; 1000 &divide; dose mcg</li>
         </ul>
       </div>
 
-      {/* Cross links */}
-      <div className="mt-6 flex flex-col sm:flex-row gap-3">
-        <Link
-          href="/calculator"
-          className="flex-1 panel-glass p-4 hover:border-[var(--accent)]/30 transition-colors"
-        >
-          <p className="text-sm font-semibold text-[var(--text)]">Just want the answer?</p>
-          <p className="text-[var(--text-dim)] text-xs mt-0.5">
-            Use the calculator &rarr;
-          </p>
+      <div className="mt-6 grid sm:grid-cols-2 gap-3">
+        <Link href="/calculator" className="rounded-2xl border border-[var(--border)] p-5 hover:border-[var(--border-strong)] transition-colors">
+          <p className="text-white">Just want the answer?</p>
+          <p className="text-[var(--text-dim)] text-sm mt-1">Use the calculator</p>
         </Link>
-        <Link
-          href="/learn/reconstitution"
-          className="flex-1 panel-glass p-4 hover:border-[var(--accent)]/30 transition-colors"
-        >
-          <p className="text-sm font-semibold text-[var(--text)]">Ready to mix a vial?</p>
-          <p className="text-[var(--text-dim)] text-xs mt-0.5">
-            See the step-by-step walkthrough &rarr;
-          </p>
+        <Link href="/learn/reconstitution" className="rounded-2xl border border-[var(--border)] p-5 hover:border-[var(--border-strong)] transition-colors">
+          <p className="text-white">Ready to mix a vial?</p>
+          <p className="text-[var(--text-dim)] text-sm mt-1">Next guide: how to reconstitute</p>
         </Link>
       </div>
 
-      <p className="mt-8 text-[10px] text-[var(--text-faint)] leading-relaxed text-center">
+      <p className="mt-10 text-xs text-[var(--text-faint)] leading-relaxed">
         Educational information only. Not medical advice. Research peptides are not
-        approved for human use in many places — know your local laws.
+        approved for human use in many places. Know your local laws.
       </p>
     </div>
   );

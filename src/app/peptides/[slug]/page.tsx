@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageHeader } from "@/components/layout/page-header";
 import { AuthGate } from "@/components/auth/auth-gate";
 import { peptides, getPeptideById } from "@/data/peptides";
+import { categoryLabels, categoryColor } from "@/components/peptides/vial-card";
 
 export function generateStaticParams() {
   return peptides.map((p) => ({ slug: p.id }));
@@ -20,18 +21,16 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 const storageLabel: Record<string, string> = {
-  fridge: "🧊 Refrigerate",
-  freezer: "❄️ Freeze",
-  room: "🏠 Room temp",
+  fridge: "Refrigerate after mixing",
+  freezer: "Freeze after mixing",
+  room: "Room temperature is fine",
 };
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Fact({ label, value }: { label: string; value: string }) {
   return (
-    <div className="panel-glass p-4">
-      <p className="text-[9px] font-mono uppercase tracking-wider text-[var(--text-faint)] mb-1">
-        {label}
-      </p>
-      <p className="text-sm font-mono text-[var(--text)]">{value}</p>
+    <div className="py-4 border-b border-[var(--border)] flex items-baseline justify-between gap-4">
+      <dt className="text-sm text-[var(--text-dim)]">{label}</dt>
+      <dd className="font-mono text-sm text-white text-right tabular-nums">{value}</dd>
     </div>
   );
 }
@@ -43,102 +42,90 @@ export default function PeptideDetailPage({ params }: { params: { slug: string }
   const compat = p.stackCompatibility
     .map((id) => getPeptideById(id))
     .filter((x): x is NonNullable<typeof x> => Boolean(x));
+  const color = categoryColor[p.category];
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 md:py-12">
+    <div className="max-w-3xl mx-auto px-5 sm:px-8">
       <PageHeader
         crumbs={[{ label: "Peptides", href: "/peptides" }, { label: p.name }]}
-        eyebrow={p.category}
-        title={<span className="text-[var(--accent)]">{p.name}</span>}
+        eyebrow={categoryLabels[p.category]}
+        title={p.name}
         subtitle={p.notes}
+        aside={
+          <span className="font-mono text-sm text-[var(--text-faint)] inline-flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full" style={{ background: color }} aria-hidden />
+            {p.ticker}
+          </span>
+        }
       />
 
       <AuthGate
         title="Sign in to see the full profile"
         description={`Dose, storage, side effects, and stacks for ${p.name}.`}
       >
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        <Stat
-          label="Dose range"
-          value={`${p.typicalDoseRangeMcg[0]}–${p.typicalDoseRangeMcg[1]} mcg`}
-        />
-        <Stat label="Frequency" value={p.injectionFrequency} />
-        <Stat label="Vial sizes" value={`${p.commonVialSizesMg.join(", ")} mg`} />
-        <Stat label="Shelf life" value={`${p.shelfLifeReconstitutedDays} days`} />
-      </div>
+        <div className="grid md:grid-cols-2 gap-x-12">
+          <dl className="border-t border-[var(--border)]">
+            <Fact label="Typical dose" value={`${p.typicalDoseRangeMcg[0]}–${p.typicalDoseRangeMcg[1]} mcg`} />
+            <Fact label="Frequency" value={p.injectionFrequency} />
+            <Fact label="Common vial sizes" value={`${p.commonVialSizesMg.join(", ")} mg`} />
+          </dl>
+          <dl className="border-t border-[var(--border)]">
+            <Fact label="Storage" value={storageLabel[p.storage] ?? p.storage} />
+            <Fact label="Shelf life once mixed" value={`${p.shelfLifeReconstitutedDays} days`} />
+            <Fact label="Bacteriostatic water" value={`${p.bacWaterExpiryDays} days`} />
+          </dl>
+        </div>
 
-      {/* Storage badges */}
-      <div className="flex flex-wrap gap-2 mb-6">
-        <span className="px-2.5 py-1 rounded-lg text-xs bg-blue-500/10 text-blue-400 border border-blue-500/20">
-          {storageLabel[p.storage] ?? p.storage}
-        </span>
         {p.uvSensitive && (
-          <span className="px-2.5 py-1 rounded-lg text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20">
-            ☀️ UV sensitive
-          </span>
+          <p className="mt-5 text-sm text-[var(--accent-amber)]">
+            Sensitive to light. Keep the vial in its box or a dark container.
+          </p>
         )}
-        <span className="px-2.5 py-1 rounded-lg text-xs bg-[var(--accent-faint)] text-[var(--text-dim)] border border-[var(--border)]">
-          BAC water: {p.bacWaterExpiryDays}d
-        </span>
-      </div>
 
-      {/* Common side effects */}
-      {p.commonSideEffects.length > 0 && (
-        <div className="mb-6">
-          <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-faint)] mb-2">
-            Common side effects
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {p.commonSideEffects.map((se) => (
-              <span
-                key={se}
-                className="text-[11px] px-2 py-0.5 rounded-full bg-[var(--bg-elevated)] text-[var(--text-secondary)] border border-[var(--border)] font-mono"
-              >
-                {se.replace(/-/g, " ")}
-              </span>
-            ))}
+        {p.commonSideEffects.length > 0 && (
+          <div className="mt-10">
+            <p className="text-sm text-[var(--text-dim)] mb-3">Commonly reported side effects</p>
+            <div className="flex flex-wrap gap-2">
+              {p.commonSideEffects.map((se) => (
+                <span
+                  key={se}
+                  className="text-sm px-3 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]"
+                >
+                  {se.replace(/-/g, " ")}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Stack compatibility */}
-      {compat.length > 0 && (
-        <div className="mb-8">
-          <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-faint)] mb-2">
-            Stacks well with
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {compat.map((cp) => (
-              <Link
-                key={cp.id}
-                href={`/peptides/${cp.id}`}
-                className="text-[11px] px-2.5 py-1 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] border border-[var(--accent)]/15 font-mono hover:bg-[var(--accent)]/20 transition-colors"
-              >
-                {cp.name}
-              </Link>
-            ))}
+        {compat.length > 0 && (
+          <div className="mt-8">
+            <p className="text-sm text-[var(--text-dim)] mb-3">Stacks well with</p>
+            <div className="flex flex-wrap gap-2">
+              {compat.map((cp) => (
+                <Link
+                  key={cp.id}
+                  href={`/peptides/${cp.id}`}
+                  className="text-sm px-3 py-1 rounded-full border border-[var(--accent-dim)] bg-[var(--accent-faint)] text-[var(--accent)] hover:bg-[var(--accent-dim)] transition-colors"
+                >
+                  {cp.name}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
       </AuthGate>
 
-      {/* CTAs */}
-      <div className="flex flex-col sm:flex-row gap-3">
-        <Link
-          href="/calculator"
-          className="flex-1 text-center px-4 py-3 rounded-lg bg-[var(--accent)] text-white font-mono text-xs uppercase tracking-[0.1em] hover:opacity-90 transition-all"
-        >
-          Calculate a Dose
+      <div className="mt-12 flex flex-wrap gap-3">
+        <Link href="/calculator" className="btn-primary">
+          Calculate a dose
         </Link>
-        <Link
-          href="/compare"
-          className="flex-1 text-center px-4 py-3 rounded-lg border border-[var(--accent-dim)] text-[var(--accent)] font-mono text-xs uppercase tracking-[0.1em] hover:bg-[var(--accent)] hover:text-white transition-all"
-        >
-          Compare Side Effects
+        <Link href="/compare" className="btn-secondary">
+          Compare side effects
         </Link>
       </div>
 
-      <p className="mt-8 text-[10px] text-[var(--text-faint)] leading-relaxed text-center">
+      <p className="mt-10 text-xs text-[var(--text-faint)] leading-relaxed">
         Educational information only. Not medical advice.
       </p>
     </div>

@@ -17,7 +17,7 @@ function StatCard({
 }) {
   return (
     <div className="panel-glass p-3 rounded-xl">
-      <p className="text-[9px] text-[var(--text-faint)] font-mono uppercase tracking-widest mb-1">
+      <p className="text-xs text-[var(--text-faint)] mb-1">
         {label}
       </p>
       <p className="font-mono font-bold text-xl text-[var(--text)]">
@@ -32,7 +32,7 @@ export function CalculationResults({ result }: ResultsProps) {
   if (!result) {
     return (
       <div className="panel-glass p-8 text-center">
-        <div className="text-[var(--text-faint)] text-xs font-mono uppercase tracking-widest mb-2">
+        <div className="text-[var(--text-faint)] text-xs mb-2">
           Results
         </div>
         <p className="text-[var(--text-faint)] text-sm">
@@ -50,15 +50,15 @@ export function CalculationResults({ result }: ResultsProps) {
           layout
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="relative overflow-hidden rounded-2xl border border-[var(--accent)]/20"
+          className="relative overflow-hidden rounded-2xl border border-[var(--accent-dim)]"
           style={{
             background:
-              "linear-gradient(135deg, rgba(0,212,190,0.12) 0%, rgba(0,212,190,0.04) 100%)",
+              "linear-gradient(135deg, rgba(0,200,5,0.14) 0%, rgba(0,200,5,0.04) 100%)",
           }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,212,190,0.08),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,200,5,0.14),transparent_70%)]" />
           <div className="relative px-5 py-6 text-center">
-            <p className="text-[10px] text-[var(--accent)]/60 font-mono uppercase tracking-[0.2em] mb-2">
+            <p className="text-xs text-[var(--accent)]/60 mb-2">
               Draw
             </p>
             <div className="flex items-baseline justify-center gap-2">
@@ -83,13 +83,13 @@ export function CalculationResults({ result }: ResultsProps) {
           suffix="mg/mL"
         />
         <StatCard
-          label="Doses / Vial"
+          label="Doses per vial"
           value={result.dosesPerVial}
           suffix="doses"
         />
         {result.costPerDose !== undefined && (
           <StatCard
-            label="Cost / Dose"
+            label="Cost per dose"
             value={`$${result.costPerDose}`}
             suffix=""
           />

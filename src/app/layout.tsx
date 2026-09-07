@@ -1,22 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { JetBrains_Mono } from "next/font/google";
 import { SiteNav } from "@/components/layout/site-nav";
 import { Providers } from "@/components/providers";
 import { OfflineIndicator } from "@/components/layout/offline-indicator";
-import { BackgroundVideo } from "@/components/layout/background-video";
 import { AppShell } from "@/components/layout/app-shell";
 import "./globals.css";
 
-const inter = Inter({
-  subsets: ["latin"],
+const geist = localFont({
+  src: "./fonts/GeistVF.woff",
   variable: "--font-sans",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: "100 900",
+  display: "swap",
 });
 
 const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -48,7 +50,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0C12",
+  themeColor: "#0A0A0B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -60,11 +62,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${mono.variable} font-sans antialiased min-h-screen`}
-        style={{ backgroundColor: "transparent", color: "var(--text)" }}
-      >
-        <BackgroundVideo />
+      <body className={`${geist.variable} ${mono.variable} font-sans min-h-screen`}>
         <Providers>
           <OfflineIndicator />
           <SiteNav />

@@ -13,21 +13,16 @@ export default function CalculatorPage() {
   return (
     <div>
       <ReconCalculator />
-      <div className="max-w-5xl mx-auto px-4 pb-10">
-        <div className="panel-glass p-5 flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
+      <div className="max-w-6xl mx-auto px-5 sm:px-8 pt-10">
+        <div className="rounded-2xl border border-[var(--border)] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
           <div>
-            <p className="text-sm font-semibold text-[var(--text)]">
-              Want to understand the math?
-            </p>
-            <p className="text-[var(--text-dim)] text-xs mt-0.5">
-              The calculator gives the answer. The formula guide shows every step.
+            <p className="text-base text-white">Want to see the math?</p>
+            <p className="text-[var(--text-dim)] text-sm mt-1">
+              The formula guide works every step with your own numbers.
             </p>
           </div>
-          <Link
-            href="/learn/formula"
-            className="shrink-0 inline-block px-4 py-2 rounded-lg border border-[var(--accent-dim)] text-[var(--accent)] font-mono text-xs uppercase tracking-[0.1em] hover:bg-[var(--accent)] hover:text-white transition-all"
-          >
-            Learn the Formula
+          <Link href="/learn/formula" className="btn-secondary shrink-0">
+            Read the formula
           </Link>
         </div>
       </div>

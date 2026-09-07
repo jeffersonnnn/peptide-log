@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SplitWords } from "@/components/motion/reveal";
 
 interface Crumb {
   label: string;
@@ -10,44 +11,61 @@ interface PageHeaderProps {
   title: React.ReactNode;
   subtitle?: string;
   crumbs?: Crumb[];
+  /** Optional element shown on the right of the title on wide screens. */
+  aside?: React.ReactNode;
 }
 
 /**
- * Shared page header for the multipage site. Keeps the "bureau" look:
- * mono eyebrow, large tracking-tight title, dim subtitle.
+ * Shared inner-page header. One clear title that rises in word by word,
+ * a plain-language eyebrow, and a graduation rule below to tie every page
+ * to the syringe scale.
  */
-export function PageHeader({ eyebrow, title, subtitle, crumbs }: PageHeaderProps) {
+export function PageHeader({ eyebrow, title, subtitle, crumbs, aside }: PageHeaderProps) {
+  const titleClass = "text-4xl md:text-5xl font-medium tracking-display leading-[1.02]";
   return (
-    <div className="mb-8">
+    <header className="mb-8 md:mb-10">
       {crumbs && crumbs.length > 0 && (
-        <nav className="mb-4 flex flex-wrap items-center gap-1.5 text-[10px] font-mono text-[var(--text-faint)]">
+        <nav className="mb-5 flex flex-wrap items-center gap-2 text-xs text-[var(--text-faint)]" aria-label="Breadcrumb">
           {crumbs.map((c, i) => (
-            <span key={i} className="flex items-center gap-1.5">
+            <span key={i} className="flex items-center gap-2">
               {c.href ? (
-                <Link href={c.href} className="hover:text-[var(--accent)] transition-colors">
+                <Link href={c.href} className="hover:text-white transition-colors">
                   {c.label}
                 </Link>
               ) : (
                 <span className="text-[var(--text-dim)]">{c.label}</span>
               )}
-              {i < crumbs.length - 1 && <span className="text-[var(--text-faint)]">/</span>}
+              {i < crumbs.length - 1 && <span aria-hidden>/</span>}
             </span>
           ))}
         </nav>
       )}
-      {eyebrow && (
-        <span className="block text-[9px] font-mono uppercase tracking-[0.2em] text-[var(--text-dim)] mb-3">
-          {eyebrow}
-        </span>
-      )}
-      <h1 className="text-3xl md:text-4xl font-bold tracking-[-0.03em] leading-[1.05]">
-        {title}
-      </h1>
-      {subtitle && (
-        <p className="text-[var(--text-dim)] text-sm mt-2 max-w-[60ch] leading-relaxed">
-          {subtitle}
-        </p>
-      )}
-    </div>
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div>
+          {eyebrow && (
+            <p className="hero-in text-sm text-[var(--accent)] mb-2">{eyebrow}</p>
+          )}
+          {typeof title === "string" ? (
+            <SplitWords as="h1" text={title} className={titleClass} stagger={0.06} />
+          ) : (
+            <h1 className={`hero-in ${titleClass}`}>{title}</h1>
+          )}
+          {subtitle && (
+            <p
+              className="hero-in text-[var(--text-dim)] text-base mt-3 max-w-[58ch] leading-relaxed"
+              style={{ animationDelay: "0.25s" }}
+            >
+              {subtitle}
+            </p>
+          )}
+        </div>
+        {aside && (
+          <div className="shrink-0 hero-in" style={{ animationDelay: "0.35s" }}>
+            {aside}
+          </div>
+        )}
+      </div>
+      <div className="graduation mt-6 hero-in" style={{ animationDelay: "0.4s" }} aria-hidden />
+    </header>
   );
 }

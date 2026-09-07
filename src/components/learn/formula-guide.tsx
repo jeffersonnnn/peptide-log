@@ -20,7 +20,7 @@ interface FieldProps {
 function Field({ label, unit, value, onChange, step }: FieldProps) {
   return (
     <label className="block">
-      <span className="block text-[10px] font-mono uppercase tracking-wider text-[var(--text-dim)] mb-1.5">
+      <span className="block text-xs text-[var(--text-dim)] mb-1.5">
         {label}
       </span>
       <div className="flex items-center rounded-lg border border-[var(--border)] bg-[var(--bg-surface)] focus-within:border-[var(--accent)] transition-colors">
@@ -60,7 +60,7 @@ function Step({ n, title, formula, substituted, result, note }: StepProps) {
       </div>
       <div className="space-y-2 pl-8">
         <div>
-          <p className="text-[9px] font-mono uppercase tracking-wider text-[var(--text-faint)] mb-1">
+          <p className="text-xs text-[var(--text-faint)] mb-1">
             Formula
           </p>
           <p className="text-xs font-mono text-[var(--text-secondary)] leading-relaxed">
@@ -68,7 +68,7 @@ function Step({ n, title, formula, substituted, result, note }: StepProps) {
           </p>
         </div>
         <div>
-          <p className="text-[9px] font-mono uppercase tracking-wider text-[var(--text-faint)] mb-1">
+          <p className="text-xs text-[var(--text-faint)] mb-1">
             Your numbers
           </p>
           <p className="text-xs font-mono text-[var(--text-secondary)] leading-relaxed break-words">
@@ -115,7 +115,7 @@ export function FormulaGuide() {
     <div className="space-y-6">
       {/* Inputs */}
       <div className="panel-glass p-5">
-        <p className="text-[10px] font-mono uppercase tracking-wider text-[var(--text-dim)] mb-4">
+        <p className="text-xs text-[var(--text-dim)] mb-4">
           Plug in your own numbers
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -123,7 +123,7 @@ export function FormulaGuide() {
           <Field label="Desired dose" unit="mcg" value={dose} onChange={setDose} step="10" />
           <Field label="BAC water" unit="mL" value={bac} onChange={setBac} step="0.5" />
           <label className="block">
-            <span className="block text-[10px] font-mono uppercase tracking-wider text-[var(--text-dim)] mb-1.5">
+            <span className="block text-xs text-[var(--text-dim)] mb-1.5">
               Syringe
             </span>
             <select

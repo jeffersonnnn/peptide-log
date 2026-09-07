@@ -43,17 +43,17 @@ export function InjectionZone({
         cy={cy}
         rx={rx}
         ry={ry}
-        fill={selected ? "rgba(0, 212, 190, 0.15)" : "transparent"}
-        stroke={selected ? "var(--accent)" : "rgba(0, 212, 190, 0.2)"}
+        fill={selected ? "rgba(0, 200, 5, 0.15)" : "transparent"}
+        stroke={selected ? "var(--accent)" : "rgba(0, 200, 5, 0.2)"}
         strokeWidth={selected ? 1.5 : 1}
         strokeDasharray={selected ? "none" : "4 3"}
         animate={{
-          fill: selected ? "rgba(0, 212, 190, 0.15)" : "rgba(0, 212, 190, 0.0)",
-          stroke: selected ? "var(--accent)" : "rgba(0, 212, 190, 0.2)",
+          fill: selected ? "rgba(0, 200, 5, 0.15)" : "rgba(0, 200, 5, 0.0)",
+          stroke: selected ? "var(--accent)" : "rgba(0, 200, 5, 0.2)",
         }}
         whileHover={{
-          fill: "rgba(0, 212, 190, 0.1)",
-          stroke: "rgba(0, 212, 190, 0.4)",
+          fill: "rgba(0, 200, 5, 0.1)",
+          stroke: "rgba(0, 200, 5, 0.4)",
         }}
         transition={{ duration: 0.2 }}
       />

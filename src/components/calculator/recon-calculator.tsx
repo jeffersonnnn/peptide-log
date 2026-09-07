@@ -6,48 +6,55 @@ import { CalculationResults } from "./calculation-results";
 import { PresetButtons } from "./preset-buttons";
 import { SyringeVisual } from "@/components/syringe/syringe-visual";
 import { UsageCounter } from "@/components/layout/usage-counter";
+import { PageHeader } from "@/components/layout/page-header";
 import { StackMode } from "./stack-mode";
 import { AuthGate } from "@/components/auth/auth-gate";
 import { ShareButton } from "@/components/protocol/share-button";
+
+const storageWord = { fridge: "Refrigerate", freezer: "Freeze", room: "Room temperature" } as const;
 
 export function ReconCalculator() {
   const calc = useCalculator();
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-6 md:py-10 overflow-x-hidden">
-      {/* Header */}
-      <div className="mb-6 text-center md:text-left">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
-          <span className="text-[var(--accent)]">Peptide</span>Log
-        </h1>
-        <p className="text-[var(--text-dim)] text-sm mt-1">
-          Reconstitution calculator with visual syringe guide
-        </p>
-        <div className="mt-3">
-          <UsageCounter />
+    <div className="max-w-6xl mx-auto px-5 sm:px-8 overflow-x-hidden">
+      <PageHeader
+        eyebrow="Calculator"
+        title="Reconstitution calculator"
+        subtitle="Enter the vial, the water, and the dose. The syringe shows the line to draw to."
+        aside={<UsageCounter />}
+      />
+
+      {/* The instrument. Full width, sticks under the nav on desktop while you edit. */}
+      <div className="canvas rounded-[24px] p-4 sm:p-6">
+        <div className="flex items-center justify-between text-xs text-[var(--text-dim)] px-1">
+          <span>{calc.selectedPeptide?.name ?? "Peptide"}</span>
+          <span>{calc.syringeTypeId.startsWith("u100") ? "U100 insulin syringe" : "Standard 1 mL syringe"}</span>
         </div>
+        <SyringeVisual
+          drawLinePosition={calc.result?.drawLinePosition ?? 0}
+          unitsToDrawPerDose={calc.result?.unitsToDrawPerDose ?? 0}
+          syringeTypeId={calc.syringeTypeId}
+          warning={calc.result?.warning}
+          className="w-full max-w-[860px] mx-auto"
+        />
       </div>
 
-      {/* Presets (gated) */}
-      <AuthGate
-        compact
-        title="Sign in for preset stacks"
-        description="One-tap popular stacks like the Wolverine Stack."
-        className="mb-6"
-      >
-        <div className="overflow-x-auto -mx-4 px-4">
-          <PresetButtons onSelect={calc.selectPeptide} />
-        </div>
-      </AuthGate>
+      <div className="mt-6">
+        <AuthGate
+          compact
+          title="Sign in for preset stacks"
+          description="One-tap popular stacks like the Wolverine Stack."
+        >
+          <div className="overflow-x-auto -mx-4 px-4">
+            <PresetButtons onSelect={calc.selectPeptide} />
+          </div>
+        </AuthGate>
+      </div>
 
-      {/* Mobile: stacked layout. Desktop: 3-col */}
-      <div className="flex flex-col md:grid md:grid-cols-[1fr,auto,1fr] gap-6 items-start">
-        {/* Inputs */}
+      <div className="mt-6 grid md:grid-cols-2 gap-6 items-start">
         <div className="w-full min-w-0 space-y-4">
-          <PeptideSelector
-            selectedId={calc.peptideId}
-            onSelect={calc.selectPeptide}
-          />
+          <PeptideSelector selectedId={calc.peptideId} onSelect={calc.selectPeptide} />
           <DoseInputs
             peptide={calc.selectedPeptide}
             vialSizeMg={calc.vialSizeMg}
@@ -61,68 +68,47 @@ export function ReconCalculator() {
             onSyringeChange={calc.setSyringeTypeId}
             onPriceChange={calc.setPricePerVial}
           />
-          {/* Storage info */}
+        </div>
+
+        <div className="w-full min-w-0 space-y-4">
+          <div id="calc-result-card">
+            <CalculationResults result={calc.result} />
+          </div>
+          {calc.result && (
+            <AuthGate
+              compact
+              overlay={false}
+              title="Sign in to save and share"
+              description="Copy a shareable image of this result."
+            >
+              <ShareButton cardElementId="calc-result-card" />
+            </AuthGate>
+          )}
           {calc.selectedPeptide && (
-            <div className="panel-glass p-4 space-y-2">
-              <p className="text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider">
-                Storage
-              </p>
+            <div className="rounded-2xl border border-[var(--border)] p-4 space-y-3">
+              <p className="text-xs text-[var(--text-dim)]">Storage for {calc.selectedPeptide.name}</p>
               <div className="flex flex-wrap gap-2 text-xs">
-                <span className="px-2 py-1 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                  {calc.selectedPeptide.storage === "fridge"
-                    ? "🧊 Refrigerate"
-                    : calc.selectedPeptide.storage === "freezer"
-                    ? "❄️ Freeze"
-                    : "🏠 Room Temp"}
+                <span className="px-2.5 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]">
+                  {storageWord[calc.selectedPeptide.storage]}
                 </span>
                 {calc.selectedPeptide.uvSensitive && (
-                  <span className="px-2 py-1 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                    ☀️ UV Sensitive
+                  <span className="px-2.5 py-1 rounded-full border border-[var(--accent-amber)]/30 text-[var(--accent-amber)]">
+                    Keep out of light
                   </span>
                 )}
-                <span className="px-2 py-1 rounded bg-[var(--accent-faint)] text-[var(--text-dim)] border border-[var(--border)]">
-                  {calc.selectedPeptide.shelfLifeReconstitutedDays}d shelf life
+                <span className="px-2.5 py-1 rounded-full border border-[var(--border)] text-[var(--text-secondary)]">
+                  {calc.selectedPeptide.shelfLifeReconstitutedDays} days once mixed
                 </span>
               </div>
-              <p className="text-[var(--text-faint)] text-[11px] leading-relaxed mt-2 break-words">
+              <p className="text-[var(--text-faint)] text-xs leading-relaxed break-words">
                 {calc.selectedPeptide.notes}
               </p>
             </div>
           )}
         </div>
-
-        {/* Syringe */}
-        <div className="flex justify-center w-full md:w-auto md:sticky md:top-8">
-          <SyringeVisual
-            drawLinePosition={calc.result?.drawLinePosition ?? 0}
-            unitsToDrawPerDose={calc.result?.unitsToDrawPerDose ?? 0}
-            syringeTypeId={calc.syringeTypeId}
-            warning={calc.result?.warning}
-          />
-        </div>
-
-        {/* Results */}
-        <div className="w-full min-w-0">
-          <div id="calc-result-card">
-            <CalculationResults result={calc.result} />
-          </div>
-          {calc.result && (
-            <div className="mt-3">
-              <AuthGate
-                compact
-                overlay={false}
-                title="Sign in to save & share"
-                description="Copy a shareable image of this result."
-              >
-                <ShareButton cardElementId="calc-result-card" />
-              </AuthGate>
-            </div>
-          )}
-        </div>
       </div>
 
-      {/* Stack Mode (gated) */}
-      <div className="mt-6">
+      <div className="mt-8">
         <AuthGate
           title="Sign in to build stacks"
           description="Calculate several peptides at once and save them as a stack."

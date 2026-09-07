@@ -14,7 +14,7 @@ export function BodyDiagram({ selectedZone, onSelectZone }: BodyDiagramProps) {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider">
+        <p className="text-xs text-[var(--text-dim)]">
           Injection Site
         </p>
         <div className="flex rounded-lg overflow-hidden border border-[var(--border)]">

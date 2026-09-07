@@ -58,7 +58,7 @@ export function SideEffectForm({ onSubmit }: SideEffectFormProps) {
       {/* Peptide + Dose row */}
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider mb-1.5">
+          <label className="block text-xs text-[var(--text-dim)] mb-1.5">
             Peptide
           </label>
           <select
@@ -71,14 +71,14 @@ export function SideEffectForm({ onSubmit }: SideEffectFormProps) {
             className="w-full panel-glass px-3 py-2.5 text-[var(--accent)] font-mono text-sm outline-none bg-transparent appearance-none cursor-pointer"
           >
             {peptides.map((p) => (
-              <option key={p.id} value={p.id} className="bg-[#0a1020] text-white">
+              <option key={p.id} value={p.id} className="bg-[#121214] text-white">
                 {p.name}
               </option>
             ))}
           </select>
         </div>
         <div>
-          <label className="block text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider mb-1.5">
+          <label className="block text-xs text-[var(--text-dim)] mb-1.5">
             Dose
           </label>
           <div className="relative">
@@ -119,7 +119,7 @@ export function SideEffectForm({ onSubmit }: SideEffectFormProps) {
 
       {/* Notes */}
       <div>
-        <label className="block text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider mb-1.5">
+        <label className="block text-xs text-[var(--text-dim)] mb-1.5">
           Notes
         </label>
         <textarea

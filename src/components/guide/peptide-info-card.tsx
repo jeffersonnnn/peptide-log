@@ -41,23 +41,23 @@ export function PeptideInfoCard({ peptide }: PeptideInfoCardProps) {
 
       <div className="grid grid-cols-2 gap-4 text-xs">
         <div>
-          <p className="text-[var(--text-faint)] font-mono uppercase text-[10px] mb-1">Dose Range</p>
+          <p className="text-[var(--text-faint)] text-xs mb-1">Dose range</p>
           <p className="text-[var(--text-secondary)] font-mono">
             {peptide.typicalDoseRangeMcg[0]} - {peptide.typicalDoseRangeMcg[1]} mcg
           </p>
         </div>
         <div>
-          <p className="text-[var(--text-faint)] font-mono uppercase text-[10px] mb-1">Frequency</p>
+          <p className="text-[var(--text-faint)] text-xs mb-1">Frequency</p>
           <p className="text-[var(--text-secondary)] font-mono">{peptide.injectionFrequency}</p>
         </div>
         <div>
-          <p className="text-[var(--text-faint)] font-mono uppercase text-[10px] mb-1">Vial Sizes</p>
+          <p className="text-[var(--text-faint)] text-xs mb-1">Vial sizes</p>
           <p className="text-[var(--text-secondary)] font-mono">
             {peptide.commonVialSizesMg.join(", ")} mg
           </p>
         </div>
         <div>
-          <p className="text-[var(--text-faint)] font-mono uppercase text-[10px] mb-1">Storage</p>
+          <p className="text-[var(--text-faint)] text-xs mb-1">Storage</p>
           <p className="text-[var(--text-secondary)] font-mono capitalize">
             {peptide.storage} | {peptide.shelfLifeReconstitutedDays}d shelf life
           </p>
@@ -66,7 +66,7 @@ export function PeptideInfoCard({ peptide }: PeptideInfoCardProps) {
 
       {compatPeptides.length > 0 && (
         <div>
-          <p className="text-[var(--text-faint)] font-mono uppercase text-[10px] mb-2">
+          <p className="text-[var(--text-faint)] text-xs mb-2">
             Stack Compatible With
           </p>
           <div className="flex flex-wrap gap-1.5">

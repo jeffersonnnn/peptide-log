@@ -26,7 +26,7 @@ export function SideEffectChips({ selected, onToggle }: SideEffectChipsProps) {
 
   return (
     <div className="space-y-3">
-      <p className="text-[10px] text-[var(--text-dim)] font-mono uppercase tracking-wider">
+      <p className="text-xs text-[var(--text-dim)]">
         Side Effects
       </p>
       {Object.entries(grouped).map(([category, effects]) => (

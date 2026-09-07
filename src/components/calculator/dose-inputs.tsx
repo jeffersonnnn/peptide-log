@@ -35,7 +35,7 @@ function NumberInput({
 }) {
   return (
     <div>
-      <label className="block text-xs text-[var(--text-dim)] mb-1.5 font-mono uppercase tracking-wider">
+      <label className="block text-xs text-[var(--text-dim)] mb-1.5">
         {label}
       </label>
       <div className="relative">
@@ -88,7 +88,7 @@ export function DoseInputs({
   return (
     <div className="grid gap-4">
       <NumberInput
-        label="Vial Size"
+        label="Vial size"
         value={vialSizeMg}
         onChange={onVialChange}
         suffix="mg"
@@ -96,7 +96,7 @@ export function DoseInputs({
         presets={peptide?.commonVialSizesMg}
       />
       <NumberInput
-        label="Desired Dose"
+        label="Desired dose"
         value={desiredDoseMcg}
         onChange={onDoseChange}
         suffix="mcg"
@@ -108,7 +108,7 @@ export function DoseInputs({
         }
       />
       <NumberInput
-        label="BAC Water"
+        label="Bacteriostatic water"
         value={bacWaterMl}
         onChange={onBacChange}
         suffix="mL"
@@ -116,8 +116,8 @@ export function DoseInputs({
         presets={[1, 2, 3, 5]}
       />
       <div>
-        <label className="block text-xs text-[var(--text-dim)] mb-1.5 font-mono uppercase tracking-wider">
-          Syringe Type
+        <label className="block text-xs text-[var(--text-dim)] mb-1.5">
+          Syringe type
         </label>
         <select
           value={syringeTypeId}
@@ -125,14 +125,14 @@ export function DoseInputs({
           className="w-full panel-glass px-4 py-3 text-[var(--accent)] font-mono font-semibold text-sm outline-none focus:border-[var(--accent-dim)] transition-colors bg-transparent appearance-none cursor-pointer"
         >
           {syringeTypes.map((s) => (
-            <option key={s.id} value={s.id} className="bg-[#0a1020] text-white">
+            <option key={s.id} value={s.id} className="bg-[#121214] text-white">
               {s.label}
             </option>
           ))}
         </select>
       </div>
       <NumberInput
-        label="Price per Vial (optional)"
+        label="Price per vial, optional"
         value={pricePerVial ?? 0}
         onChange={(v) => onPriceChange(v > 0 ? v : undefined)}
         suffix="$"

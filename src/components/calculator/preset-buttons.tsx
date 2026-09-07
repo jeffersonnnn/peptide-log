@@ -15,8 +15,8 @@ const presetIcons: Record<string, string> = {
 export function PresetButtons({ onSelect }: PresetButtonsProps) {
   return (
     <div>
-      <p className="text-xs text-[var(--text-dim)] font-mono uppercase tracking-wider mb-2">
-        Quick Presets
+      <p className="text-xs text-[var(--text-dim)] mb-2">
+        Quick presets
       </p>
       <div className="flex flex-nowrap md:flex-wrap gap-2 overflow-x-auto pb-1 scrollbar-hide">
         {presets.map((preset) => (
