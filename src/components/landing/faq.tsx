@@ -14,7 +14,7 @@ const FAQ = [
   },
   {
     q: "Is there a token?",
-    a: "A token is planned. The contract address is coming soon and will be posted in the footer of this site and on X at @PeptideLog. Do not trust any address posted anywhere else.",
+    a: "A token is planned. The contract address is coming soon and will be posted in the footer of this site and on X at @peptidelog_. Do not trust any address posted anywhere else.",
   },
   {
     q: "What does reconstitution mean?",

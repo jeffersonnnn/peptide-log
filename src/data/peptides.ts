@@ -15,7 +15,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["nausea", "fatigue", "injection-site-pain"],
     stackCompatibility: ["tb-500", "ghk-cu", "ipamorelin"],
-    notes: "Body Protection Compound. Gastric pentadecapeptide. Most studied for tendon, ligament, and gut healing. SubQ near injury site or abdomen.",
+    notes: "BPC-157 is a lab-made peptide based on a protein found in the stomach. People use it to help tendons, ligaments, and the gut heal faster. Most inject it just under the skin, near the injured area or the belly.",
   },
   {
     id: "tb-500",
@@ -31,7 +31,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["fatigue", "headache"],
     stackCompatibility: ["bpc-157", "ghk-cu"],
-    notes: "Thymosin Beta-4 fragment. Systemic healing peptide. Higher doses than BPC-157. Often stacked as the 'Wolverine stack'.",
+    notes: "TB-500 is a lab-made version of a protein the body uses to repair tissue. It works through the whole body instead of one spot, so people take it for wider injuries. It needs higher doses than BPC-157 and often pairs with it in the 'Wolverine stack'.",
   },
   {
     id: "retatrutide",
@@ -47,7 +47,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["nausea", "appetite-change", "flu-like", "fatigue"],
     stackCompatibility: ["nad-plus", "mots-c"],
-    notes: "Triple agonist (GIP/GLP-1/glucagon). Phase 3 trials. Start low (1mg) and titrate up. Appetite suppression is primary effect.",
+    notes: "Retatrutide is an experimental weight-loss drug that acts on three appetite and blood-sugar hormones at once. Its main effect is to lower hunger. People start on a low dose (about 1 mg) and raise it slowly to limit nausea.",
   },
   {
     id: "semaglutide",
@@ -63,7 +63,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["nausea", "appetite-change", "digestive-issues"],
     stackCompatibility: [],
-    notes: "GLP-1 agonist. Branded as Ozempic/Wegovy. Start at 0.25mg, titrate monthly.",
+    notes: "Semaglutide is the GLP-1 medicine sold as Ozempic and Wegovy. It slows the stomach and lowers appetite, which helps with blood sugar and weight loss. People usually start at 0.25 mg and raise the dose one step each month.",
   },
   {
     id: "ghk-cu",
@@ -79,7 +79,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["injection-site-pain"],
     stackCompatibility: ["bpc-157", "tb-500"],
-    notes: "Copper peptide. Skin regeneration, hair growth, wound healing, anti-inflammatory. Can inject SubQ near target area.",
+    notes: "GHK-Cu is a small copper-carrying peptide that the body already makes. People use it for firmer skin, hair growth, and wound healing, and to calm inflammation. It can be injected just under the skin, near the area they want to treat.",
   },
   {
     id: "nad-plus",
@@ -95,7 +95,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["flu-like", "fatigue", "nausea", "injection-site-pain"],
     stackCompatibility: ["retatrutide", "mots-c"],
-    notes: "Nicotinamide adenine dinucleotide. Cellular energy and longevity. High doses. Flu-like symptoms common in first weeks. SubQ injection can sting.",
+    notes: "NAD+ is a molecule every cell uses to make energy, and its levels fall as we age. People take it for energy and longevity. The doses are large, flu-like feelings are common in the first weeks, and the injection can sting.",
   },
   {
     id: "mt2",
@@ -111,7 +111,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["nausea", "vivid-dreams", "libido-change"],
     stackCompatibility: [],
-    notes: "Tanning peptide. Also affects appetite and libido. Start low (100mcg) to assess nausea tolerance. Loading phase then maintenance.",
+    notes: "Melanotan 2 tells the skin to make more pigment, so it darkens a tan with less sun. It also changes appetite and sex drive. People start with a small dose (about 100 mcg) to see how much nausea they get, then move from a daily loading phase to a lower upkeep dose.",
   },
   {
     id: "ipamorelin",
@@ -127,7 +127,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["headache", "vivid-dreams"],
     stackCompatibility: ["bpc-157", "tesamorelin"],
-    notes: "Growth hormone secretagogue. Stimulates natural GH release. Often stacked with CJC-1295. Best taken on empty stomach.",
+    notes: "Ipamorelin gently nudges the body to release its own growth hormone in a natural pattern. People use it for recovery and body composition. It works best on an empty stomach and often pairs with CJC-1295.",
   },
   {
     id: "tesamorelin",
@@ -143,7 +143,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["injection-site-pain", "headache"],
     stackCompatibility: ["ipamorelin"],
-    notes: "GHRH analog. FDA-approved for lipodystrophy. Reduces visceral fat. Best taken at night on empty stomach.",
+    notes: "Tesamorelin signals the body to make more of its own growth hormone. It is approved to cut deep belly fat, the kind that wraps around the organs. People usually inject it at night on an empty stomach.",
   },
   {
     id: "mots-c",
@@ -159,7 +159,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["fatigue", "flu-like"],
     stackCompatibility: ["nad-plus", "retatrutide"],
-    notes: "Mitochondrial-derived peptide. AMPK activator. Metabolic optimization and exercise mimetic. Often preceded by SS-31 priming.",
+    notes: "MOTS-c is a peptide made inside the cell's mitochondria, the parts that produce energy. It switches on the body's energy-balancing pathways, so people use it for metabolism and stamina, almost as a stand-in for exercise.",
   },
   {
     id: "selank",
@@ -175,7 +175,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["fatigue"],
     stackCompatibility: ["semax"],
-    notes: "Anxiolytic peptide. Tuftsin analog. Reduces anxiety without sedation. Available as nasal spray or SubQ. Often stacked with Semax.",
+    notes: "Selank is a calming peptide based on a natural immune protein. It eases anxiety without making you drowsy. People take it as a nasal spray or a small injection, often together with Semax.",
   },
   {
     id: "semax",
@@ -191,7 +191,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["headache"],
     stackCompatibility: ["selank"],
-    notes: "Nootropic peptide. ACTH analog. Enhances BDNF and cognitive function. Available as nasal spray or SubQ.",
+    notes: "Semax is a focus-and-memory peptide derived from a natural brain hormone. It raises BDNF, a signal that helps brain cells grow and connect. People take it as a nasal spray or a small injection.",
   },
   {
     id: "dsip",
@@ -207,7 +207,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["vivid-dreams"],
     stackCompatibility: [],
-    notes: "Delta Sleep-Inducing Peptide. Normalizes sleep architecture. Promotes deep sleep. Take 30 min before bed.",
+    notes: "DSIP, short for Delta Sleep-Inducing Peptide, helps set a normal sleep rhythm and deepen slow-wave sleep, the most restful stage. People take it about 30 minutes before bed.",
   },
   {
     id: "kpv",
@@ -223,7 +223,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: [],
     stackCompatibility: ["bpc-157"],
-    notes: "Anti-inflammatory tripeptide. Alpha-MSH fragment. Gut inflammation, skin conditions. Can be taken orally, topically, or SubQ.",
+    notes: "KPV is a tiny three-part peptide that calms inflammation. People use it for gut problems and skin conditions. It can be taken by mouth, rubbed on the skin, or injected under the skin.",
   },
   {
     id: "wolverine",
@@ -239,7 +239,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["fatigue", "nausea"],
     stackCompatibility: [],
-    notes: "BPC-157 + TB-500 blend. Most popular healing stack. Dosing schedules differ between components. If blend vial, follow BPC-157 daily schedule.",
+    notes: "The Wolverine Stack blends BPC-157 and TB-500, the two most popular healing peptides, into one all-round recovery mix. The two parts follow different schedules, so with a blended vial most people dose it daily like BPC-157.",
   },
   {
     id: "klow",
@@ -255,7 +255,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["fatigue", "injection-site-pain"],
     stackCompatibility: [],
-    notes: "BPC-157 + KPV blend. Anti-inflammatory healing stack. Popular for gut healing and injury recovery.",
+    notes: "The KLOW Blend mixes BPC-157 and KPV into one anti-inflammatory healing shot. People reach for it to calm the gut and speed up injury recovery.",
   },
   {
     id: "glow",
@@ -271,7 +271,7 @@ export const peptides: Peptide[] = [
     bacWaterExpiryDays: 28,
     commonSideEffects: ["injection-site-pain"],
     stackCompatibility: [],
-    notes: "GHK-Cu + BPC-157 blend. Skin rejuvenation and healing stack. Popular for anti-aging and cosmetic benefits.",
+    notes: "The GLOW Blend combines GHK-Cu and BPC-157 for skin and repair in one shot. People use it for anti-aging and cosmetic results alongside general healing.",
   },
 ];
 

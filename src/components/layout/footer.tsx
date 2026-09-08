@@ -80,12 +80,12 @@ export function Footer() {
               The token contract address will be posted here and on X when it goes live.
             </p>
             <a
-              href="https://x.com/PeptideLog"
+              href="https://x.com/peptidelog_"
               target="_blank"
               rel="noopener noreferrer"
               className="text-sm text-[var(--text-secondary)] hover:text-white transition-colors"
             >
-              @PeptideLog on X
+              @peptidelog_ on X
             </a>
           </div>
           <p className="text-xs text-[var(--text-faint)] leading-relaxed">
