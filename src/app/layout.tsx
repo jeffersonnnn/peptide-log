@@ -5,6 +5,7 @@ import { SiteNav } from "@/components/layout/site-nav";
 import { Providers } from "@/components/providers";
 import { OfflineIndicator } from "@/components/layout/offline-indicator";
 import { AppShell } from "@/components/layout/app-shell";
+import { ChromeRipple } from "@/components/motion/chrome-ripple";
 import "./globals.css";
 
 const geist = localFont({
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0A0B",
+  themeColor: "#151515",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -64,6 +65,7 @@ export default function RootLayout({
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${geist.variable} ${mono.variable} font-sans min-h-screen`}>
         <Providers>
+          <ChromeRipple />
           <OfflineIndicator />
           <SiteNav />
           <AppShell>{children}</AppShell>

@@ -69,7 +69,7 @@ export function ProgressSliders({
         onChange={onPainChange}
         leftLabel="None"
         rightLabel="Severe"
-        color={painLevel <= 3 ? "#4ade80" : painLevel <= 6 ? "#facc15" : "#f87171"}
+        color={painLevel <= 3 ? "#E4E2D8" : painLevel <= 6 ? "#A7B4BA" : "#9B9B9B"}
       />
       <Slider
         label="Energy Level"
@@ -77,7 +77,7 @@ export function ProgressSliders({
         onChange={onEnergyChange}
         leftLabel="Exhausted"
         rightLabel="Peak"
-        color={energyLevel >= 7 ? "#4ade80" : energyLevel >= 4 ? "#facc15" : "#f87171"}
+        color={energyLevel >= 7 ? "#E4E2D8" : energyLevel >= 4 ? "#A7B4BA" : "#9B9B9B"}
       />
       <div>
         <label className="block text-xs text-[var(--text-dim)] mb-1.5">

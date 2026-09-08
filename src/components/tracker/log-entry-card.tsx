@@ -37,7 +37,7 @@ export function LogEntryCard({ entry, onDelete, onShare }: LogEntryCardProps) {
           {onDelete && (
             <button
               onClick={() => onDelete(entry.id)}
-              className="text-[var(--text-faint)] hover:text-red-400 text-xs transition-colors"
+              className="text-[var(--text-faint)] hover:text-[var(--bone)] text-xs transition-colors"
             >
               delete
             </button>
@@ -78,7 +78,7 @@ export function LogEntryCard({ entry, onDelete, onShare }: LogEntryCardProps) {
             return (
               <span
                 key={seId}
-                className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/15"
+                className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.06] text-[var(--tint)] border border-[var(--border-strong)]"
               >
                 {se?.label ?? seId}
               </span>
@@ -96,10 +96,10 @@ export function LogEntryCard({ entry, onDelete, onShare }: LogEntryCardProps) {
             style={{
               color:
                 entry.painLevel <= 3
-                  ? "#4ade80"
+                  ? "#E4E2D8"
                   : entry.painLevel <= 6
-                  ? "#facc15"
-                  : "#f87171",
+                  ? "#A7B4BA"
+                  : "#9B9B9B",
             }}
           >
             {entry.painLevel}/10
@@ -112,10 +112,10 @@ export function LogEntryCard({ entry, onDelete, onShare }: LogEntryCardProps) {
             style={{
               color:
                 entry.energyLevel >= 7
-                  ? "#4ade80"
+                  ? "#E4E2D8"
                   : entry.energyLevel >= 4
-                  ? "#facc15"
-                  : "#f87171",
+                  ? "#A7B4BA"
+                  : "#9B9B9B",
             }}
           >
             {entry.energyLevel}/10

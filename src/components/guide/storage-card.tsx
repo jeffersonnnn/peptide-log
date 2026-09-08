@@ -18,7 +18,7 @@ export function StorageCard({ peptide }: StorageCardProps) {
       </div>
 
       <div className="flex flex-wrap gap-1.5">
-        <span className="text-[10px] px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">
+        <span className="text-[10px] px-2 py-0.5 rounded bg-white/[0.06] text-[var(--tint)] border border-[var(--border-strong)]">
           {peptide.storage === "fridge"
             ? "🧊 Refrigerate"
             : peptide.storage === "freezer"
@@ -26,7 +26,7 @@ export function StorageCard({ peptide }: StorageCardProps) {
             : "🏠 Room Temp"}
         </span>
         {peptide.uvSensitive && (
-          <span className="text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          <span className="text-[10px] px-2 py-0.5 rounded bg-white/[0.06] text-[var(--tint)] border border-[var(--border-strong)]">
             ☀️ UV Sensitive
           </span>
         )}
@@ -58,7 +58,7 @@ export function StorageCard({ peptide }: StorageCardProps) {
           {peptide.commonSideEffects.map((se) => (
             <span
               key={se}
-              className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/5 text-amber-400/60 capitalize"
+              className="text-[9px] px-1.5 py-0.5 rounded bg-white/[0.04] text-[var(--tint)]/60 capitalize"
             >
               {se.replace(/-/g, " ")}
             </span>

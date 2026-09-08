@@ -65,9 +65,9 @@ export function ShareButton({ cardElementId }: ShareButtonProps) {
         disabled={status === "copying"}
         className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono transition-all ${
           status === "copied"
-            ? "bg-green-500/15 text-green-400 border border-green-500/30"
+            ? "bg-white/[0.06] text-[var(--tint)] border border-[var(--border-strong)]"
             : status === "error"
-            ? "bg-red-500/15 text-red-400 border border-red-500/30"
+            ? "bg-white/[0.08] text-[var(--bone)] border border-[var(--border-strong)]"
             : "bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/30 hover:bg-[var(--accent)]/20"
         }`}
       >

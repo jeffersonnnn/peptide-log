@@ -281,7 +281,7 @@ export function SyringeVisual({
           <g filter={`url(#${id("glow")})`}>
             <line x1={fluidEnd} x2={fluidEnd} y1={BARREL_Y - 40} y2={BARREL_Y + BARREL_H + 30} stroke="var(--accent)" strokeWidth={1.6} strokeDasharray="5 4" />
             <rect x={fluidEnd - 34} y={BARREL_Y - 66} width={68} height={26} rx={13} fill="var(--accent)" />
-            <text x={fluidEnd} y={BARREL_Y - 48} fill="#0A0A0B" fontSize={13} fontFamily="var(--font-mono)" fontWeight={600} textAnchor="middle">
+            <text x={fluidEnd} y={BARREL_Y - 48} fill="#151515" fontSize={13} fontFamily="var(--font-mono)" fontWeight={600} textAnchor="middle">
               {unitsToDrawPerDose > 0 ? `${unitsToDrawPerDose.toFixed(1)} u` : "0"}
             </text>
           </g>

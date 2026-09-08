@@ -146,7 +146,7 @@ export function StackMode() {
                   {peptides
                     .filter((p) => p.category !== "blend")
                     .map((p) => (
-                      <option key={p.id} value={p.id} className="bg-[#121214] text-white">
+                      <option key={p.id} value={p.id} className="bg-[#1B1B1B] text-white">
                         {p.name}
                       </option>
                     ))}
@@ -154,7 +154,7 @@ export function StackMode() {
               </div>
               <button
                 onClick={() => removeItem(idx)}
-                className="text-[var(--text-faint)] hover:text-red-400 text-xs transition-colors"
+                className="text-[var(--text-faint)] hover:text-[var(--bone)] text-xs transition-colors"
               >
                 remove
               </button>
@@ -212,7 +212,7 @@ export function StackMode() {
             )}
 
             {item.result?.warning && (
-              <p className="text-amber-400 text-[10px] font-mono">
+              <p className="text-[var(--tint)] text-[10px] font-mono">
                 ⚠️ {item.result.warning}
               </p>
             )}

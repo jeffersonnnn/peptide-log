@@ -71,7 +71,7 @@ export function SideEffectForm({ onSubmit }: SideEffectFormProps) {
             className="w-full panel-glass px-3 py-2.5 text-[var(--accent)] font-mono text-sm outline-none bg-transparent appearance-none cursor-pointer"
           >
             {peptides.map((p) => (
-              <option key={p.id} value={p.id} className="bg-[#121214] text-white">
+              <option key={p.id} value={p.id} className="bg-[#1B1B1B] text-white">
                 {p.name}
               </option>
             ))}

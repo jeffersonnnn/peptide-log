@@ -186,16 +186,16 @@ export function FormulaGuide() {
           />
 
           {overCapacity && (
-            <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
-              <p className="text-amber-400 text-xs font-mono leading-relaxed">
+            <div className="p-3 rounded-lg bg-white/[0.04] border border-[var(--border-strong)]">
+              <p className="text-[var(--tint)] text-xs font-mono leading-relaxed">
                 ⚠️ {fmt(unitsToDraw, 0)} units is more than your syringe holds
                 ({syringe.totalUnits} units). Use more BAC water, or a larger syringe.
               </p>
             </div>
           )}
           {tooSmall && (
-            <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/20">
-              <p className="text-amber-400 text-xs font-mono leading-relaxed">
+            <div className="p-3 rounded-lg bg-white/[0.04] border border-[var(--border-strong)]">
+              <p className="text-[var(--tint)] text-xs font-mono leading-relaxed">
                 ⚠️ This dose is under 1 unit ({fmt(unitsToDraw, 1)}). Use less BAC water for
                 a more precise, easier-to-read draw.
               </p>

@@ -20,7 +20,7 @@ export function ProtocolCard({ entry }: ProtocolCardProps) {
       id="protocol-card"
       className="relative w-full max-w-md mx-auto rounded-2xl overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #030b18 0%, #0a1e3a 40%, #062a2a 100%)",
+        background: "linear-gradient(135deg, #151515 0%, #1F2224 50%, #151515 100%)",
       }}
     >
       {/* Dot grid overlay */}
@@ -61,7 +61,7 @@ export function ProtocolCard({ entry }: ProtocolCardProps) {
             <p
               className="text-2xl font-mono font-bold"
               style={{
-                color: entry.painLevel <= 3 ? "#4ade80" : entry.painLevel <= 6 ? "#facc15" : "#f87171",
+                color: entry.painLevel <= 3 ? "#E4E2D8" : entry.painLevel <= 6 ? "#A7B4BA" : "#9B9B9B",
               }}
             >
               {entry.painLevel}
@@ -73,7 +73,7 @@ export function ProtocolCard({ entry }: ProtocolCardProps) {
             <p
               className="text-2xl font-mono font-bold"
               style={{
-                color: entry.energyLevel >= 7 ? "#4ade80" : entry.energyLevel >= 4 ? "#facc15" : "#f87171",
+                color: entry.energyLevel >= 7 ? "#E4E2D8" : entry.energyLevel >= 4 ? "#A7B4BA" : "#9B9B9B",
               }}
             >
               {entry.energyLevel}
@@ -100,7 +100,7 @@ export function ProtocolCard({ entry }: ProtocolCardProps) {
                 return (
                   <span
                     key={seId}
-                    className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/15 font-mono"
+                    className="text-[10px] px-2 py-0.5 rounded-full bg-white/[0.06] text-[var(--tint)] border border-[var(--border-strong)] font-mono"
                   >
                     {se?.label ?? seId}
                   </span>

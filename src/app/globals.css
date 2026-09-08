@@ -3,57 +3,79 @@
 @tailwind utilities;
 
 /* ──────────────────────────────────────────────────────────
-   PeptideLog — "graduation mark" system.
-   Cold lab dark. One accent (the fluid in the syringe). Hairline
-   rules and tick marks carry the structure, the way a syringe barrel
-   carries its scale. Solid surfaces, no video, no heavy blur.
+   PeptideLog — "Topology" system, cloned from topology.vc.
+   Strictly monochrome: graphite ground, bone ink, mid grey, and one
+   steel blue-grey tint. There is no accent hue. All the colour on
+   the page comes from the chrome ripple canvas that sits behind
+   every section (sections are transparent, like Topology's).
+   Hairline rules carry the structure.
    ────────────────────────────────────────────────────────── */
 :root {
-  --bg: #0A0A0B;
-  --bg-surface: #121214;
-  --bg-elevated: #1A1A1D;
+  /* Topology's own tokens. */
+  --black: #000000;
+  --white: #FFFFFF;
+  --dark-gray: #151515;
+  --light-gray: #E4E2D8;
+  --light-gray2: #DBDBDB;
+  --mid-gray: #9B9B9B;
+  --blue-gray: #A7B4BA;
 
-  --panel-bg: #121214;
-  --panel-border: rgba(255, 255, 255, 0.08);
-  --panel-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  --bg: var(--dark-gray);
+  --bg-surface: #1B1B1B;
+  --bg-elevated: #232323;
 
-  --accent: #00C805;
-  --accent-hover: #2EE33A;
-  --accent-dim: rgba(0, 200, 5, 0.24);
-  --accent-faint: rgba(0, 200, 5, 0.08);
-  --accent-secondary: #7CF29A;
-  --accent-green: #4ADE80;
-  --accent-red: #F87171;
-  --accent-amber: #FBBF24;
+  --bone: var(--light-gray);
+  --bone-2: var(--light-gray2);
+  --ink: var(--dark-gray);
+  --ink-dim: rgba(21, 21, 21, 0.62);
+  --ink-faint: rgba(21, 21, 21, 0.42);
+  --tint: var(--blue-gray);
 
-  --text: #F2F4F8;
-  --text-secondary: rgba(242, 244, 248, 0.74);
-  --text-dim: rgba(242, 244, 248, 0.56);
-  --text-faint: rgba(242, 244, 248, 0.38);
+  --panel-bg: rgba(21, 21, 21, 0.72);
+  --panel-border: rgba(224, 232, 236, 0.16);
+  --panel-shadow: 0 1px 0 rgba(228, 226, 216, 0.05) inset;
 
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.14);
-  --grid-dot: rgba(255, 255, 255, 0.04);
-  --ring-color: rgba(0, 200, 5, 0.3);
+  /* "Accent" is simply bone — the brightest value on the page. */
+  --accent: var(--light-gray);
+  --accent-hover: var(--white);
+  --accent-dim: rgba(228, 226, 216, 0.22);
+  --accent-faint: rgba(228, 226, 216, 0.07);
+  --accent-secondary: var(--blue-gray);
+  --accent-green: var(--light-gray);
+  --accent-amber: var(--blue-gray);
+  --accent-red: var(--light-gray2);
 
-  --syringe-fluid-from: #00A806;
-  --syringe-fluid-to: #24E634;
-  --syringe-barrel: rgba(255, 255, 255, 0.28);
-  --syringe-struct: rgba(255, 255, 255, 0.34);
-  --syringe-struct-bold: rgba(255, 255, 255, 0.55);
-  --syringe-tick: rgba(255, 255, 255, 0.45);
-  --syringe-tick-minor: rgba(255, 255, 255, 0.16);
-  --syringe-label: rgba(255, 255, 255, 0.5);
-  --syringe-glass-from: rgba(255, 255, 255, 0.07);
-  --syringe-glass-mid: rgba(255, 255, 255, 0.02);
-  --body-stroke: rgba(255, 255, 255, 0.2);
-  --body-stroke-dim: rgba(255, 255, 255, 0.14);
-  --body-stroke-faint: rgba(255, 255, 255, 0.07);
-  --body-label: rgba(255, 255, 255, 0.12);
+  /* Bone ink on graphite (Topology sets body text to #E4E2D8). */
+  --text: var(--light-gray);
+  --text-secondary: rgba(228, 226, 216, 0.74);
+  --text-dim: rgba(228, 226, 216, 0.56);
+  --text-faint: rgba(228, 226, 216, 0.36);
 
-  --nav-bg: rgba(10, 10, 11, 0.72);
-  --gradient-from: #00C805;
-  --gradient-to: #24E634;
+  /* Topology --border-edge is rgba(224,232,236,.30). */
+  --border: rgba(224, 232, 236, 0.14);
+  --border-strong: rgba(224, 232, 236, 0.30);
+  --grid-dot: rgba(224, 232, 236, 0.06);
+  --ring-color: rgba(167, 180, 186, 0.5);
+
+  /* Chrome liquid in the syringe: silver to bone. */
+  --syringe-fluid-from: #B9BFC4;
+  --syringe-fluid-to: #ECEAE2;
+  --syringe-barrel: rgba(228, 226, 216, 0.28);
+  --syringe-struct: rgba(228, 226, 216, 0.34);
+  --syringe-struct-bold: rgba(228, 226, 216, 0.55);
+  --syringe-tick: rgba(228, 226, 216, 0.45);
+  --syringe-tick-minor: rgba(228, 226, 216, 0.16);
+  --syringe-label: rgba(228, 226, 216, 0.5);
+  --syringe-glass-from: rgba(228, 226, 216, 0.07);
+  --syringe-glass-mid: rgba(228, 226, 216, 0.02);
+  --body-stroke: rgba(228, 226, 216, 0.2);
+  --body-stroke-dim: rgba(228, 226, 216, 0.14);
+  --body-stroke-faint: rgba(228, 226, 216, 0.07);
+  --body-label: rgba(228, 226, 216, 0.12);
+
+  --nav-bg: rgba(21, 21, 21, 0.72);
+  --gradient-from: var(--light-gray);
+  --gradient-to: var(--blue-gray);
 
   --radius-lg: 24px;
   --radius-md: 14px;
@@ -68,8 +90,9 @@ html {
   background-color: var(--bg);
 }
 
+/* Transparent so the fixed chrome-ripple canvas shows through; html carries the graphite. */
 body {
-  background-color: var(--bg);
+  background-color: transparent;
   color: var(--text);
   margin: 0;
   padding: 0;
@@ -77,11 +100,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--accent); color: #0A0A0B; }
+::selection { background: var(--accent); color: #151515; }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.14); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(236, 234, 225, 0.14); border-radius: 3px; }
 
 :focus-visible {
   outline: 2px solid var(--accent);
@@ -108,13 +131,84 @@ body {
   backdrop-filter: blur(12px);
 }
 
-/* The inset canvas the hero sits in (Superpower-style framed hero). */
+/* A translucent graphite panel that lets the chrome ripple show through. */
 .canvas {
-  background:
-    radial-gradient(90% 70% at 85% 10%, rgba(255, 255, 255, 0.07), transparent 60%),
-    radial-gradient(60% 50% at 10% 100%, rgba(0, 200, 5, 0.09), transparent 60%),
-    var(--bg-surface);
+  background: rgba(21, 21, 21, 0.58);
   border: 1px solid var(--border);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* ── Topology display type: huge, thin, tight. ── */
+.display {
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 0.9;
+}
+.eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+}
+
+/* ── Split border — Topology's 1px rule with corner ticks. ── */
+.split-border {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  background: var(--border-strong);
+}
+.split-border::before,
+.split-border::after {
+  content: "";
+  position: absolute;
+  top: -3px;
+  width: 1px;
+  height: 7px;
+  background: var(--bone);
+}
+.split-border::before { left: 0; }
+.split-border::after { right: 0; }
+
+/* ── Topology's opening, cloned from their tween presets.
+   Keyed off a marker the landing page renders: [data-opener="hold"] is the
+   graphite hold; when it flips to "reveal" the transitions below run.
+     canvas / header : autoAlpha 0→1, 2.5s, joe.inOut
+     headline words  : fadeRTL, x 150→0, 1s, joe.out, stagger 75ms
+     body content    : fadeUp, 1s, joe.out, stagger 75ms
+   "joe" is their custom ease; expo-style beziers stand in. ── */
+:root {
+  --ease-joe-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-joe-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+.chrome-canvas { transition: opacity 2.5s var(--ease-joe-in-out); }
+html:has([data-opener="hold"]) .chrome-canvas { opacity: 0; }
+
+nav.site-nav { transition: opacity 1s var(--ease-joe-in-out) 1.2s; }
+html:has([data-opener="hold"]) nav.site-nav { opacity: 0; }
+
+.w {
+  display: inline-block;
+  will-change: transform, opacity;
+  transition:
+    transform 1s var(--ease-joe-out) calc(200ms + var(--i, 0) * 75ms),
+    opacity 1s var(--ease-joe-out) calc(200ms + var(--i, 0) * 75ms);
+}
+html:has([data-opener="hold"]) .w { transform: translateX(150px); opacity: 0; }
+
+.fade-up {
+  transition:
+    transform 1s var(--ease-joe-out) calc(700ms + var(--i, 0) * 75ms),
+    opacity 1s var(--ease-joe-out) calc(700ms + var(--i, 0) * 75ms);
+}
+html:has([data-opener="hold"]) .fade-up { transform: translateY(28px); opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html:has([data-opener]) .chrome-canvas,
+  html:has([data-opener]) nav.site-nav,
+  html:has([data-opener]) .w,
+  html:has([data-opener]) .fade-up { opacity: 1; transform: none; transition: none; }
 }
 
 /* ── Buttons ── */
@@ -125,7 +219,7 @@ body {
   gap: 0.5rem;
   border-radius: 999px;
   background: #ffffff;
-  color: #0A0A0B;
+  color: #151515;
   font-weight: 500;
   padding: 0.8rem 1.4rem;
   font-size: 0.9rem;

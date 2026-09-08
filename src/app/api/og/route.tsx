@@ -11,7 +11,7 @@ export async function GET() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #0A0A0B 0%, #141416 50%, #0A0A0B 100%)",
+          background: "linear-gradient(135deg, #151515 0%, #1B1B1B 50%, #151515 100%)",
           fontFamily: "system-ui, sans-serif",
         }}
       >
@@ -28,7 +28,7 @@ export async function GET() {
               width: "48px",
               height: "48px",
               borderRadius: "12px",
-              background: "linear-gradient(135deg, #00C805, #24E634)",
+              background: "linear-gradient(135deg, #A7B4BA, #E4E2D8)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
@@ -48,8 +48,8 @@ export async function GET() {
             letterSpacing: "-3px",
           }}
         >
-          <span style={{ color: "#00C805" }}>Peptide</span>
-          <span style={{ color: "#E8E8ED" }}>Log</span>
+          <span style={{ color: "#E4E2D8" }}>Peptide</span>
+          <span style={{ color: "#9B9B9B" }}>Log</span>
         </div>
 
         <p
@@ -74,11 +74,11 @@ export async function GET() {
               <div
                 key={f}
                 style={{
-                  background: "rgba(0, 200, 5, 0.15)",
-                  border: "1px solid rgba(0, 200, 5, 0.3)",
+                  background: "rgba(228, 226, 216, 0.06)",
+                  border: "1px solid rgba(224, 232, 236, 0.3)",
                   borderRadius: "999px",
                   padding: "10px 24px",
-                  color: "#00C805",
+                  color: "#E4E2D8",
                   fontSize: "20px",
                 }}
               >

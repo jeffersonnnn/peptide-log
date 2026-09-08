@@ -125,7 +125,7 @@ export function DoseInputs({
           className="w-full panel-glass px-4 py-3 text-[var(--accent)] font-mono font-semibold text-sm outline-none focus:border-[var(--accent-dim)] transition-colors bg-transparent appearance-none cursor-pointer"
         >
           {syringeTypes.map((s) => (
-            <option key={s.id} value={s.id} className="bg-[#121214] text-white">
+            <option key={s.id} value={s.id} className="bg-[#1B1B1B] text-white">
               {s.label}
             </option>
           ))}

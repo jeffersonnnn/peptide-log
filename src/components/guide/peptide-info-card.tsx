@@ -7,12 +7,12 @@ interface PeptideInfoCardProps {
 }
 
 const categoryColors: Record<string, string> = {
-  healing: "bg-emerald-500/20 text-emerald-400",
-  weight: "bg-amber-500/20 text-amber-400",
-  cosmetic: "bg-pink-500/20 text-pink-400",
-  cognitive: "bg-blue-500/20 text-blue-400",
-  sleep: "bg-violet-500/20 text-violet-400",
-  blend: "bg-cyan-500/20 text-cyan-400",
+  healing: "bg-white/[0.08] text-[var(--bone)]",
+  weight: "bg-white/[0.06] text-[var(--tint)]",
+  cosmetic: "bg-white/[0.06] text-[var(--bone-2)]",
+  cognitive: "bg-white/[0.05] text-[var(--mid-gray)]",
+  sleep: "bg-white/[0.04] text-[var(--tint)]",
+  blend: "bg-white/[0.08] text-[var(--bone)]",
 };
 
 export function PeptideInfoCard({ peptide }: PeptideInfoCardProps) {

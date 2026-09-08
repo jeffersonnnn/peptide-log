@@ -31,7 +31,7 @@ export function StickyBar() {
           className="fixed bottom-0 left-0 right-0 z-30 safe-bottom pointer-events-none"
         >
           <div className="mx-auto max-w-6xl px-3 sm:px-5 pb-3 sm:pb-4">
-            <div className="pointer-events-auto liquid-glass rounded-full flex items-center justify-between gap-3 pl-4 sm:pl-5 pr-2 py-2 bg-[rgba(10,10,11,0.85)]">
+            <div className="pointer-events-auto liquid-glass rounded-full flex items-center justify-between gap-3 pl-4 sm:pl-5 pr-2 py-2 bg-[rgba(21,21,21,0.85)]">
               <div className="hidden sm:flex items-center gap-4 min-w-0">
                 <span className="text-sm text-white truncate">Free, no account needed</span>
                 <span className="h-4 w-px bg-white/10" aria-hidden />

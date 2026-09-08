@@ -96,8 +96,8 @@ export function ReconWalkthrough() {
                   {step.desc}
                 </p>
                 {step.warning && (
-                  <div className="mt-2 p-2 rounded bg-amber-500/5 border border-amber-500/15">
-                    <p className="text-amber-400 text-[10px] font-mono leading-relaxed">
+                  <div className="mt-2 p-2 rounded bg-white/[0.04] border border-[var(--border-strong)]">
+                    <p className="text-[var(--tint)] text-[10px] font-mono leading-relaxed">
                       ⚠️ {step.warning}
                     </p>
                   </div>

@@ -54,7 +54,7 @@ export function SiteNav() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-30 transition-[background-color,border-color,padding] duration-300 ${
+        className={`site-nav fixed top-0 left-0 right-0 z-30 transition-[background-color,border-color,padding] duration-300 ${
           scrolled
             ? "bg-[var(--nav-bg)] backdrop-blur-xl border-b border-[var(--border)] py-3"
             : "bg-transparent border-b border-transparent py-5"
@@ -72,7 +72,7 @@ export function SiteNav() {
                   key={tab.href}
                   href={tab.href}
                   className={`px-4 py-1.5 rounded-full text-sm transition-colors ${
-                    active ? "text-[#0A0A0B] bg-white" : "text-white/75 hover:text-white"
+                    active ? "text-[#151515] bg-white" : "text-white/75 hover:text-white"
                   }`}
                 >
                   {tab.label}

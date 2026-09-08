@@ -10,13 +10,14 @@ export const categoryLabels: Record<Peptide["category"], string> = {
   blend: "Blends and stacks",
 };
 
+/* Monochrome taxonomy: categories differ by value, not hue (Topology has no hue). */
 export const categoryColor: Record<Peptide["category"], string> = {
-  healing: "#38BDF8",
-  weight: "#FBBF24",
-  cosmetic: "#F472B6",
-  cognitive: "#A78BFA",
-  sleep: "#818CF8",
-  blend: "#F97316",
+  healing: "#E4E2D8",
+  weight: "#A7B4BA",
+  cosmetic: "#C9C7BE",
+  cognitive: "#9B9B9B",
+  sleep: "#7C8589",
+  blend: "#DBDBDB",
 };
 
 const storageWord: Record<Peptide["storage"], string> = {

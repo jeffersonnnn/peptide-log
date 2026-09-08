@@ -13,9 +13,9 @@ interface ComparisonViewProps {
 }
 
 function getBarColor(pct: number): string {
-  if (pct >= 70) return "#f87171";
-  if (pct >= 40) return "#facc15";
-  return "var(--accent)";
+  if (pct >= 70) return "var(--bone)";
+  if (pct >= 40) return "var(--tint)";
+  return "var(--mid-gray)";
 }
 
 export function ComparisonView({ data, peptideName }: ComparisonViewProps) {

@@ -53,10 +53,10 @@ export function CalculationResults({ result }: ResultsProps) {
           className="relative overflow-hidden rounded-2xl border border-[var(--accent-dim)]"
           style={{
             background:
-              "linear-gradient(135deg, rgba(0,200,5,0.14) 0%, rgba(0,200,5,0.04) 100%)",
+              "linear-gradient(135deg, rgba(228,226,216,0.10) 0%, rgba(228,226,216,0.03) 100%)",
           }}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,200,5,0.14),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(167,180,186,0.16),transparent_70%)]" />
           <div className="relative px-5 py-6 text-center">
             <p className="text-xs text-[var(--accent)]/60 mb-2">
               Draw
@@ -100,7 +100,7 @@ export function CalculationResults({ result }: ResultsProps) {
         <motion.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-mono"
+          className="p-3 rounded-lg bg-white/[0.06] border border-[var(--border-strong)] text-[var(--tint)] text-xs font-mono"
         >
           {result.warning}
         </motion.div>
